@@ -16,27 +16,34 @@ function supplementPath (menu) {
 }
 
 export const menuHeader = supplementPath([
-  { path: '/index', title: '首页', icon: 'home' },
-  {
-    title: '页面',
-    icon: 'folder-o',
-    children: [
-      { path: '/page1', title: '页面 1' },
-      { path: '/page2', title: '页面 2' },
-      { path: '/page3', title: '页面 3' }
-    ]
-  }
+
 ])
 
 export const menuAside = supplementPath([
   { path: '/index', title: '首页', icon: 'home' },
   {
-    title: '页面',
-    icon: 'folder-o',
-    children: [
-      { path: '/page1', title: '页面 1' },
-      { path: '/page2', title: '页面 2' },
-      { path: '/page3', title: '页面 3' }
-    ]
+    title: '用户管理',
+    icon: 'music',
+    path: '/user'
   }
+  // {
+  //   title: '分类管理',
+  //   icon: 'home',
+  //   path: '/collectionType'
+  // },
+  // {
+  //   title: '歌手管理',
+  //   icon: 'home',
+  //   path: '/singer'
+  // },
+  // {
+  //   title: '专辑管理',
+  //   icon: 'home',
+  //   path: '/album'
+  // },
+  // {
+  //   title: '歌单管理',
+  //   icon: 'home',
+  //   path: '/collection'
+  // }
 ])

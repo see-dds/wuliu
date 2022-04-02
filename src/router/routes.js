@@ -21,15 +21,15 @@ const frameIn = [
         },
         component: _import('system/index')
       },
-      // 演示页面
+      // 用户管理页面
       {
-        path: 'page1',
-        name: 'page1',
+        path: 'user',
+        name: 'user',
         meta: {
-          title: '页面 1',
+          title: '用户管理',
           auth: true
         },
-        component: _import('demo/page1')
+        component: _import('user')
       },
       {
         path: 'page2',
