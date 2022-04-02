@@ -49,6 +49,15 @@ const frameIn = [
         },
         component: _import('demo/page3')
       },
+      {
+        path: 'driverUser',
+        name: 'driverUser',
+        meta: {
+          title: '司机',
+          auth: true
+        },
+        component: _import('driver/driver')
+      },
       // 系统 前端日志
       {
         path: 'log',
