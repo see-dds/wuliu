@@ -1,60 +1,122 @@
 <template>
-<d2-container>
-  <div slot="header" style="display: flex">
-      <el-button @click="showAddBox=true" >添加</el-button>
-      <el-input placeholder="请输入歌手名称" v-model="collectionName" style="width:200px" />
-      <el-button @click="page=1;tableData=[];getList()">搜索</el-button>
-  </div>
-  <el-table :data="tableData">
-    <el-table-column label="序号" width="50" type="index"/>
-    <el-table-column prop='phone' label="登录账号" width="180"/>
-    <el-table-column prop='pwd' label="密码" width="180"/>
-    <el-table-column prop='name' label="姓名" width="200"/>
-    <el-table-column prop='phone' label="电话" width="220"/>
-    <el-table-column prop='type' label="角色名" width="150"/>
-    <el-table-column prop='createdAt' label="创建时间" width="280"/>
-    <el-table-column>
-      <template slot-scope="scope">
-         <el-button type="primary" size='small' @click="handleDel(scope.row)">分配角色</el-button>
-         <el-button type="warning" size='small' @click="handleEdit(scope.row)">修改密码</el-button>
-      </template>
-    </el-table-column>
-  </el-table>
-  <!-- <div slot="footer">
-    <el-pagination
-      :total="total"
-      :page-size="limit"
-      :current-page="page"
-      @current-change="handlePageChange"
-    />
-  </div> -->
+  <d2-container>
+    <div slot="header" style="display: flex">
+      <el-button @click="showAddBox=true">添加</el-button>
+      <el-input placeholder="请输入歌手名称" v-model="collectionName" style="width:200px"/>
+      <el-button @click="page=1,tableData=[],getList()">搜索</el-button>
+    </div>
+    <el-table :data="tableData" stripe>
+      <el-table-column label="序号" width="50" type="index"/>
+      <el-table-column prop='phone' label="登录账号" width="130"/>
+      <el-table-column prop='pwd' label="密码" width="120"/>
+      <el-table-column prop='name' label="姓名" width="100"/>
+      <el-table-column prop='phone' label="电话" width="120"/>
+      <!--      <el-table-column prop='type' label="角色名" width="120"/>-->
+      <el-table-column label="角色" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.groupID | typeTxt }}
+        </template>
+      </el-table-column>
+      <!--      <el-table-column prop='createdAt' label="创建时间" width="280"/>-->
+      <el-table-column label="创建时间" width="150">
+        {{ createdAt|format('YYYY-MM-DD') }}
+      </el-table-column>
+      <el-table-column style="{display: flex}" label="操作" >
+        <template slot-scope="scope">
+          <el-tooltip class="item" effect="dark" content="编辑" placement="left">
+            <el-button type="primary" icon="el-icon-edit" circle size='small' @click="handleDel(scope.row)"></el-button>
+          </el-tooltip>
+          <el-tooltip class="item" effect="dark" content="删除" placement="top">
+            <el-button type="danger" icon="el-icon-delete" circle size='small' @click="handleDel(scope.row)"></el-button>
+          </el-tooltip>
+          <el-tooltip class="item" effect="dark" content="分配权限" placement="right">
+            <el-button type="success" icon="el-icon-check" circle size='small' @click="handleDel(scope.row)"></el-button>
+          </el-tooltip>
+        </template>
+      </el-table-column>
+    </el-table>
+    <div slot="footer">
+      <el-pagination
+        :total="total"
+        :page-size="limit"
+        :current-page="page"
+        @current-change="handlePageChange"
+      />
+    </div>
 
-<!--  添加表单的弹窗 start-->
+    <!--  添加表单的弹窗 start-->
 
-  <!-- <el-dialog
-    title="添加歌单"
-    :visible.sync="showAddBox"
-    width="800px"
-    :before-close="beforeAddClose">
-     <el-form  label-width="120px" size="mini" ref="addForm">
-            <el-form-item label="专辑名">
-             <el-input v-model="colletionInfo.name"></el-input>
-           </el-form-item>
-            <el-upload
-             :limit="1"
-             class="upload-demo"
-             :action="uploadUrl"
-             :on-remove="handleRemove"
-             :file-list="fileList"
-             :on-success="uploadOk"
-             list-type="picture">
-             <el-button size="small" type="primary">点击上传</el-button>
-             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-           </el-upload>
-            <el-form-item label="歌单描述">
-              <VueEditor v-model="colletionInfo.desc"></VueEditor>
-            </el-form-item>
-            <el-form-item :label="'歌曲'+(index+1)" v-for="(item,index) in colletionInfo.songs" :key="item.key">
+    <!-- <el-dialog
+      title="添加歌单"
+      :visible.sync="showAddBox"
+      width="800px"
+      :before-close="beforeAddClose">
+       <el-form  label-width="120px" size="mini" ref="addForm">
+              <el-form-item label="专辑名">
+               <el-input v-model="colletionInfo.name"></el-input>
+             </el-form-item>
+              <el-upload
+               :limit="1"
+               class="upload-demo"
+               :action="uploadUrl"
+               :on-remove="handleRemove"
+               :file-list="fileList"
+               :on-success="uploadOk"
+               list-type="picture">
+               <el-button size="small" type="primary">点击上传</el-button>
+               <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+             </el-upload>
+              <el-form-item label="歌单描述">
+                <VueEditor v-model="colletionInfo.desc"></VueEditor>
+              </el-form-item>
+              <el-form-item :label="'歌曲'+(index+1)" v-for="(item,index) in colletionInfo.songs" :key="item.key">
+              <div style="display: flex">
+                <el-autocomplete
+                  class="inline-input"
+                  v-model="item.songid"
+                  :fetch-suggestions="querySearch"
+                  placeholder="请输入内容"
+                  :trigger-on-focus="false"
+                  @select="(res)=>handleSelect(res,index)"
+                ></el-autocomplete>
+                <span @click="colletionInfo.songs.splice(index,1);temsong.splice(index,1)"> 删</span>
+              </div>
+              </el-form-item>
+              <el-button @click="colletionInfo.songs.push({key:Date.now(),songid:''})"> 添加歌曲 </el-button>
+
+       </el-form>
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="showAddBox = false">取 消</el-button>
+            <el-button type="primary" @click="handleAdd">确 定</el-button>
+        </span>
+    </el-dialog> -->
+    <!--  添加表单的弹窗 end -->
+
+    <!--  编辑表单的弹窗 start-->
+    <!-- <el-dialog
+      title="编辑歌曲"
+      :visible.sync="showEditBox"
+      width="800px"
+      :before-close="beforeAddClose">
+      <el-form  label-width="120px" size="mini">
+          <el-form-item label="专辑名">
+            <el-input v-model="colletionInfo.name"></el-input>
+          </el-form-item>
+          <el-upload
+            :limit="1"
+            class="upload-demo"
+            :action="uploadUrl"
+            :on-remove="handleRemove"
+            :file-list="fileList"
+            :on-success="uploadOk"
+            list-type="picture">
+            <el-button size="small" type="primary">点击上传</el-button>
+            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+          </el-upload>
+          <el-form-item label="歌单描述">
+            <VueEditor v-model="colletionInfo.desc"></VueEditor>
+          </el-form-item>
+          <el-form-item :label="'歌曲'+(index+1)" v-for="(item,index) in colletionInfo.songs" :key="item.key">
             <div style="display: flex">
               <el-autocomplete
                 class="inline-input"
@@ -66,64 +128,17 @@
               ></el-autocomplete>
               <span @click="colletionInfo.songs.splice(index,1);temsong.splice(index,1)"> 删</span>
             </div>
-            </el-form-item>
-            <el-button @click="colletionInfo.songs.push({key:Date.now(),songid:''})"> 添加歌曲 </el-button>
-
-     </el-form>
+          </el-form-item>
+          <el-button @click="colletionInfo.songs.push({key:Date.now(),songid:''})"> 添加歌曲 </el-button>
+      </el-form>
       <span slot="footer" class="dialog-footer">
-          <el-button @click="showAddBox = false">取 消</el-button>
-          <el-button type="primary" @click="handleAdd">确 定</el-button>
-      </span>
-  </el-dialog> -->
-  <!--  添加表单的弹窗 end -->
+            <el-button @click="showEditBox = false">取 消</el-button>
+            <el-button type="primary" @click="confirmEdit">确 定</el-button>
+        </span>
+    </el-dialog> -->
+    <!--  编辑表单的弹窗 end -->
 
-  <!--  编辑表单的弹窗 start-->
-  <!-- <el-dialog
-    title="编辑歌曲"
-    :visible.sync="showEditBox"
-    width="800px"
-    :before-close="beforeAddClose">
-    <el-form  label-width="120px" size="mini">
-        <el-form-item label="专辑名">
-          <el-input v-model="colletionInfo.name"></el-input>
-        </el-form-item>
-        <el-upload
-          :limit="1"
-          class="upload-demo"
-          :action="uploadUrl"
-          :on-remove="handleRemove"
-          :file-list="fileList"
-          :on-success="uploadOk"
-          list-type="picture">
-          <el-button size="small" type="primary">点击上传</el-button>
-          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-        </el-upload>
-        <el-form-item label="歌单描述">
-          <VueEditor v-model="colletionInfo.desc"></VueEditor>
-        </el-form-item>
-        <el-form-item :label="'歌曲'+(index+1)" v-for="(item,index) in colletionInfo.songs" :key="item.key">
-          <div style="display: flex">
-            <el-autocomplete
-              class="inline-input"
-              v-model="item.songid"
-              :fetch-suggestions="querySearch"
-              placeholder="请输入内容"
-              :trigger-on-focus="false"
-              @select="(res)=>handleSelect(res,index)"
-            ></el-autocomplete>
-            <span @click="colletionInfo.songs.splice(index,1);temsong.splice(index,1)"> 删</span>
-          </div>
-        </el-form-item>
-        <el-button @click="colletionInfo.songs.push({key:Date.now(),songid:''})"> 添加歌曲 </el-button>
-    </el-form>
-    <span slot="footer" class="dialog-footer">
-          <el-button @click="showEditBox = false">取 消</el-button>
-          <el-button type="primary" @click="confirmEdit">确 定</el-button>
-      </span>
-  </el-dialog> -->
-  <!--  编辑表单的弹窗 end -->
-
-</d2-container>
+  </d2-container>
 </template>
 <script>
 // import { VueEditor } from 'vue2-editor'
@@ -151,7 +166,12 @@ export default {
         desc: ''
       },
       temsong: [],
-      singer: null
+      singer: null,
+      adminInfo: {
+        name: '',
+        phone: '',
+        groupID: 1 // 1 大陆歌手 2 港澳  3 台湾 4 海外
+      }
     }
   },
   created () {
@@ -234,7 +254,7 @@ export default {
       const res = await this.api.post('/admin/getAdmin', postData)
       // 获得数据
       this.tableData = res.data
-    //   this.total = res.data.count
+      //   this.total = res.data.count
     },
     beforeAddClose () { // 在添加弹窗关闭前执行
       console.log('在关闭之前执行')
@@ -249,7 +269,7 @@ export default {
       this.temsong = []
       this.showAddBox = false
     },
-    async  handleAdd () {
+    async handleAdd () {
       // return console.log(this.colletionInfo, this.temsong)
       const res = await this.api.post('/collection/add', {
         ...this.colletionInfo,
@@ -276,10 +296,10 @@ export default {
   },
   filters: {
     typeTxt (val) {
-      if (val === 1) return '大陆'
-      if (val === 2) return '港澳'
-      if (val === 3) return '台湾'
-      if (val === 4) return '海外'
+      if (val === 1) return '主管'
+      if (val === 2) return '超级管理员'
+      if (val === 3) return '管理员'
+      if (val === 4) return '财务'
     }
   }
 }
