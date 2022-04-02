@@ -11,9 +11,23 @@ import store from '@/store/index'
 import router from './router'
 import { menuHeader, menuAside } from '@/menu'
 import { frameInRoutes } from '@/router/routes'
-
+import $api from '@/apis/index'
+import dayjs from 'dayjs'
+Vue.prototype.api = $api
 // 核心插件
 Vue.use(d2Admin)
+
+Vue.mixin({
+  data () {
+    return {
+      uploadUrl: 'http://127.0.0.1:3000/api/v1/upload'
+    }
+  }
+})
+
+Vue.filter('format', (val, formatTxt) => {
+  return dayjs(val).format(formatTxt)
+})
 
 new Vue({
   router,

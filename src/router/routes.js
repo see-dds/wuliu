@@ -21,6 +21,34 @@ const frameIn = [
         },
         component: _import('system/index')
       },
+      // 用户管理页面
+      {
+        path: 'user',
+        name: 'user',
+        meta: {
+          title: '用户管理',
+          auth: true
+        },
+        component: _import('user')
+      },
+      {
+        path: 'page2',
+        name: 'page2',
+        meta: {
+          title: '页面 2',
+          auth: true
+        },
+        component: _import('demo/page2')
+      },
+      {
+        path: 'page3',
+        name: 'page3',
+        meta: {
+          title: '页面 3',
+          auth: true
+        },
+        component: _import('demo/page3')
+      },
       // 系统 前端日志
       {
         path: 'log',
