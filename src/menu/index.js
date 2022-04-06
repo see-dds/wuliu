@@ -9,26 +9,15 @@ function supplementPath (menu) {
   return menu.map(e => ({
     ...e,
     path: e.path || uniqueId('d2-menu-empty-'),
-    ...e.children ? {
-      children: supplementPath(e.children)
-    } : {}
+    ...(e.children
+      ? {
+        children: supplementPath(e.children)
+      }
+      : {})
   }))
 }
 
-export const menuHeader = supplementPath([
-  { path: '/index', title: '首页', icon: 'home' },
-  {
-    title: '订单',
-    icon: 'folder-o',
-    children: [
-      { path: '/page1', title: '订单列表' },
-      { path: '/page2', title: '新增订单' },
-      { path: '/page3', title: '订单调度' },
-      { path: '/page4', title: '单量管理' }
-
-    ]
-  }
-])
+export const menuHeader = supplementPath([])
 
 export const menuAside = supplementPath([
   { path: '/index', title: '首页', icon: 'home' },
@@ -40,6 +29,36 @@ export const menuAside = supplementPath([
       { path: '/page2', title: '新增订单' },
       { path: '/page3', title: '订单调度' },
       { path: '/page4', title: '单量管理' }
+
+    ]
+  },
+  {
+    title: '司机管理',
+    icon: 'blind',
+    children: [
+      { path: '/driverUser', title: '司机管理', icon: 'users' },
+      { path: '/driverCar', title: '车辆管理', icon: 'truck' },
+      { path: '/location', title: '运输追踪', icon: 'map-marker' }
+    ]
+  },
+  {
+    path: '/song',
+    title: '公告',
+    icon: 'bell',
+    children: [
+      { path: '/sendNotice', title: '发送公告', icon: 'circle' },
+      { path: '/noticeManage', title: '公告管理', icon: 'circle' }
     ]
   }
+  // export const menuHeader = supplementPath([
+  //   { path: '/index', title: '首页', icon: 'home' },
+  //   {
+  //     title: '页面',
+  //     icon: 'folder-o',
+  //     children: [
+  //       { path: '/page1', title: '页面 1' },
+  //       { path: '/page2', title: '页面 2' },
+  //       { path: '/page3', title: '页面 3' }
+  //     ]
+  //   }
 ])

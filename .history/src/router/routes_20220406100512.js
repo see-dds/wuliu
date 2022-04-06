@@ -21,102 +21,47 @@ const frameIn = [
         },
         component: _import('system/index')
       },
-      // 公告
-      {
-        path: 'notice',
-        name: 'notice',
-        meta: {
-          title: '公告',
-          auth: true
-        },
-        component: _import('notice/notice')
-      },
-      // 发送公告
-      {
-        path: 'sendNotice',
-        name: 'sendNotice',
-        meta: {
-          title: '发送公告',
-          auth: true
-        },
-        component: _import('notice/sendNotice')
-      },
-      // 公告管理
-      {
-        path: 'noticeManage',
-        name: 'noticeManage',
-        meta: {
-          title: '公告管理',
-          auth: true
-        },
-        component: _import('notice/noticeManage.vue')
-      },
       // 演示页面
       {
         path: 'page1',
         name: 'page1',
         meta: {
-          title: '订单列表',
+          title: '页面 1',
           auth: true
         },
-        component: _import('order/page1')
+        component: _import('demo/page1')
       },
       {
         path: 'page2',
         name: 'page2',
         meta: {
-          title: '新增订单',
+          title: '页面 2',
           auth: true
         },
-        component: _import('order/page2')
+        component: _import('demo/page2')
       },
       {
         path: 'page3',
         name: 'page3',
         meta: {
-          title: '订单调度',
+          title: '页面 3',
           auth: true
         },
-        component: _import('order/page3')
-      },
-      {
-        path: 'page4',
-        name: 'page4',
-        meta: {
-          title: '单量管理',
-          auth: true
-        },
-        component: _import('order/page4')
+        component: _import('demo/page3')
       },
       {
         // 司机管理
         path: 'driverUser',
         name: 'driverUser',
         meta: {
-          title: '司机管理',
+          title: '司机',
           auth: true
         },
-        component: _import('driver/driver.vue')
+        component: _import('driver/driver')
       },
       {
         // 车辆管理
-        path: 'driverCar',
-        name: 'driverCar',
-        meta: {
-          title: '车辆管理',
-          auth: true
-        },
-        component: _import('driver/car.vue')
-      },
-      {
-        // 运输追踪
-        path: 'location',
-        name: 'mapMarker',
-        meta: {
-          title: '运输追踪',
-          auth: true
-        },
-        component: _import('driver/mapMarker.vue')
+        
       },
       // 系统 前端日志
       {
