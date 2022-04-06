@@ -1,26 +1,28 @@
 <template>
   <d2-container>
     <div slot="header" style="display: flex">
-      <el-button @click="showAddBox=true">添加</el-button>
+      <el-button @click="showAddBox=true" type="primary">
+        <i class="el-icon-plus"></i>添加
+      </el-button>
       <el-input placeholder="请输入用户名称" style="width:200px"/>
       <el-button>搜索</el-button>
     </div>
     <el-table :data="tableData" stripe>
-      <el-table-column label="序号" width="50" type="index"/>
-      <el-table-column prop='phone' label="登录账号" width="150"/>
+      <el-table-column label="序号" align="center" width="50" type="index"/>
+      <el-table-column prop='phone' align="center" label="登录账号" width="150"/>
       <!--      <el-table-column prop='pwd' label="密码" width="120"/>-->
-      <el-table-column prop='name' label="姓名" width="120"/>
-      <el-table-column prop='phone' label="电话" width="140"/>
-      <el-table-column prop='pwd' label="密码" width="140"/>
-      <el-table-column label="角色" width="140">
+      <el-table-column prop='name' align="center" label="姓名" width="120"/>
+      <el-table-column prop='phone' align="center" label="电话" width="140"/>
+      <el-table-column prop='pwd' align="center" label="密码" width="140"/>
+      <el-table-column label="角色" align="center" width="140">
         <template slot-scope="scope">
           {{ scope.row.groupID | typeTxt }}
         </template>
       </el-table-column>
-      <el-table-column label="创建时间" width="150">
+      <el-table-column label="创建时间" align="center" width="150">
         {{ createdAt|format('YYYY-MM-DD') }}
       </el-table-column>
-      <el-table-column style="{display: flex}" label="操作">
+      <el-table-column style="{display: flex}" label="操作" align="center">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="编辑" placement="left">
             <el-button type="primary" icon="el-icon-edit" circle size='small'
