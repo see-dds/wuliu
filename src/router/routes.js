@@ -29,7 +29,17 @@ const frameIn = [
           title: '用户管理',
           auth: true
         },
-        component: _import('user')
+        component: _import('user/user')
+      },
+      // 角色管理页面
+      {
+        path: 'role',
+        name: 'role',
+        meta: {
+          title: '角色管理',
+          auth: true
+        },
+        component: _import('user/role')
       },
       // 系统 前端日志
       {
