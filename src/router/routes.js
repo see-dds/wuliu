@@ -26,28 +26,37 @@ const frameIn = [
         path: 'page1',
         name: 'page1',
         meta: {
-          title: '页面 1',
+          title: '订单列表',
           auth: true
         },
-        component: _import('demo/page1')
+        component: _import('order/page1')
       },
       {
         path: 'page2',
         name: 'page2',
         meta: {
-          title: '页面 2',
+          title: '新增订单',
           auth: true
         },
-        component: _import('demo/page2')
+        component: _import('order/page2')
       },
       {
         path: 'page3',
         name: 'page3',
         meta: {
-          title: '页面 3',
+          title: '订单调度',
           auth: true
         },
-        component: _import('demo/page3')
+        component: _import('order/page3')
+      },
+      {
+        path: 'page4',
+        name: 'page4',
+        meta: {
+          title: '单量管理',
+          auth: true
+        },
+        component: _import('order/page4')
       },
       // 系统 前端日志
       {

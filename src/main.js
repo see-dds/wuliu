@@ -4,6 +4,11 @@ import i18n from './i18n'
 import App from './App'
 // 核心插件
 import d2Admin from '@/plugin/d2admin'
+import Avue from '@smallwei/avue'
+import '@smallwei/avue/lib/index.css'
+import axios from 'axios'
+// import VueAxios from 'vue-axios'
+
 // store
 import store from '@/store/index'
 
@@ -14,6 +19,8 @@ import { frameInRoutes } from '@/router/routes'
 
 // 核心插件
 Vue.use(d2Admin)
+Vue.use(Avue, { axios })
+// Vue.use(VueAxios, axios)
 
 new Vue({
   router,

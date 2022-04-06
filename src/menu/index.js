@@ -18,12 +18,14 @@ function supplementPath (menu) {
 export const menuHeader = supplementPath([
   { path: '/index', title: '首页', icon: 'home' },
   {
-    title: '页面',
+    title: '订单',
     icon: 'folder-o',
     children: [
-      { path: '/page1', title: '页面 1' },
-      { path: '/page2', title: '页面 2' },
-      { path: '/page3', title: '页面 3' }
+      { path: '/page1', title: '订单列表' },
+      { path: '/page2', title: '新增订单' },
+      { path: '/page3', title: '订单调度' },
+      { path: '/page4', title: '单量管理' }
+
     ]
   }
 ])
@@ -31,12 +33,13 @@ export const menuHeader = supplementPath([
 export const menuAside = supplementPath([
   { path: '/index', title: '首页', icon: 'home' },
   {
-    title: '页面',
+    title: '订单',
     icon: 'folder-o',
     children: [
-      { path: '/page1', title: '页面 1' },
-      { path: '/page2', title: '页面 2' },
-      { path: '/page3', title: '页面 3' }
+      { path: '/page1', title: '订单列表' },
+      { path: '/page2', title: '新增订单' },
+      { path: '/page3', title: '订单调度' },
+      { path: '/page4', title: '单量管理' }
     ]
   }
 ])
