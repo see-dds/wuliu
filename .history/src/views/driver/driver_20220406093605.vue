@@ -38,10 +38,10 @@
       <el-table-column prop="" label="出车总量" width="80"> </el-table-column>
       <el-table-column fixed="right" label="操作" width="120">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="seeFrom = true">
+          <el-button type="text" size="small" @click="dialogFormVisible = true">
             查看
           </el-button>
-          <el-button type="text" size="small" @click="editFrom = true">
+          <el-button type="text" size="small">
             编辑
           </el-button>
           <el-button
@@ -65,54 +65,11 @@
     </div>
 
     <!-- 查看弹窗 -->
-    <el-dialog :visible.sync="seeFrom">
-      <el-form :model="form">
-        <el-col :span="12">
-          <el-form-item label="姓名" >
-            <el-input style="width:220px" ></el-input>
-          </el-form-item>
-          <el-form-item label="年龄">
-            <el-input style="width:220px" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="电话">
-            <el-input style="width:220px" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="性别">
-            <el-input style="width:220px" autocomplete="off"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="身份证号">
-            <el-input style="width:220px" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="管理车辆">
-            <el-input style="width:220px" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="司机驾龄">
-            <el-input style="width:220px" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="交易次数">
-            <el-input style="width:220px" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="出车总量">
-            <el-input style="width:220px" autocomplete="off"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="seeFrom = false">取 消</el-button>
-        <el-button type="primary" @click="seeFrom = false">确 定</el-button>
-      </div>
-    </el-dialog>
-
-    <!-- 查看弹窗 -->
-
-    <!-- 编辑弹窗 -->
-    <el-dialog title="编辑信息" :visible.sync="editFrom">
+    <el-dialog  :visible.sync="dialogFormVisible">
       <el-form :model="form">
         <el-col :span="12">
           <el-form-item label="姓名">
-            <el-input style="width:220px" ></el-input>
+            <el-input style="width:220px"></el-input>
           </el-form-item>
           <el-form-item label="年龄">
             <el-input style="width:220px" autocomplete="off"></el-input>
@@ -135,21 +92,26 @@
             <el-input style="width:220px" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="交易次数">
+            <!-- <el-select v-model="form.region" placeholder="请选择活动区域">
+              <el-option label="区域一" value="shanghai"></el-option>
+              <el-option label="区域二" value="beijing"></el-option>
+            </el-select> -->
             <el-input style="width:220px" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="出车总量">
+           <el-form-item label="出车总量">
             <el-input style="width:220px" autocomplete="off"></el-input>
           </el-form-item>
         </el-col>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="editFrom = false">取 消</el-button>
-        <el-button type="primary" @click="editFrom = false"
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogFormVisible = false"
           >确 定</el-button
         >
       </div>
     </el-dialog>
-    <!-- 编辑弹窗 -->
+
+    <!--  -->
   </d2-container>
 </template>
 <!-- name: 'driverUser' -->
@@ -165,10 +127,9 @@ export default {
   data () {
     return {
       select: '',
-      seeFrom: false,
-      editFrom: false,
+      dialogFormVisible: false,
       form: {
-        name: '呜呜',
+        name: '',
         region: '',
         date1: '',
         date2: '',

@@ -34,8 +34,8 @@ export const menuAside = supplementPath([
     title: '司机管理',
     icon: 'car',
     children: [
-      { path: '/driverUser', title: '司机管理', icon: 'user' },
-      { path: '/driverCar', title: '车辆管理', icon: 'car' },
+      { path: '/driverUser', title: '司机', icon: 'user' },
+      { path: '/driverCar', title: '车辆' },
       { path: '/page3', title: '页面 3' }
     ]
   }

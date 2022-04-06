@@ -68,8 +68,8 @@
     <el-dialog :visible.sync="seeFrom">
       <el-form :model="form">
         <el-col :span="12">
-          <el-form-item label="姓名" >
-            <el-input style="width:220px" ></el-input>
+          <el-form-item label="姓名">
+            <el-input style="width:220px"></el-input>
           </el-form-item>
           <el-form-item label="年龄">
             <el-input style="width:220px" autocomplete="off"></el-input>
@@ -107,50 +107,9 @@
 
     <!-- 查看弹窗 -->
 
-    <!-- 编辑弹窗 -->
-    <el-dialog title="编辑信息" :visible.sync="editFrom">
-      <el-form :model="form">
-        <el-col :span="12">
-          <el-form-item label="姓名">
-            <el-input style="width:220px" ></el-input>
-          </el-form-item>
-          <el-form-item label="年龄">
-            <el-input style="width:220px" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="电话">
-            <el-input style="width:220px" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="性别">
-            <el-input style="width:220px" autocomplete="off"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="身份证号">
-            <el-input style="width:220px" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="管理车辆">
-            <el-input style="width:220px" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="司机驾龄">
-            <el-input style="width:220px" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="交易次数">
-            <el-input style="width:220px" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="出车总量">
-            <el-input style="width:220px" autocomplete="off"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="editFrom = false">取 消</el-button>
-        <el-button type="primary" @click="editFrom = false"
-          >确 定</el-button
-        >
-      </div>
-    </el-dialog>
-    <!-- 编辑弹窗 -->
+   
   </d2-container>
+  
 </template>
 <!-- name: 'driverUser' -->
 <script>
@@ -168,7 +127,7 @@ export default {
       seeFrom: false,
       editFrom: false,
       form: {
-        name: '呜呜',
+        name: '',
         region: '',
         date1: '',
         date2: '',

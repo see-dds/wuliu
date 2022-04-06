@@ -68,7 +68,7 @@
     <el-dialog :visible.sync="seeFrom">
       <el-form :model="form">
         <el-col :span="12">
-          <el-form-item label="姓名" >
+          <el-form-item label="姓名">
             <el-input style="width:220px" ></el-input>
           </el-form-item>
           <el-form-item label="年龄">
@@ -112,7 +112,7 @@
       <el-form :model="form">
         <el-col :span="12">
           <el-form-item label="姓名">
-            <el-input style="width:220px" ></el-input>
+            <el-input style="width:220px" type="name"></el-input>
           </el-form-item>
           <el-form-item label="年龄">
             <el-input style="width:220px" autocomplete="off"></el-input>

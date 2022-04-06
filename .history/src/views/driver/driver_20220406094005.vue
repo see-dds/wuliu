@@ -41,7 +41,7 @@
           <el-button type="text" size="small" @click="seeFrom = true">
             查看
           </el-button>
-          <el-button type="text" size="small" @click="editFrom = true">
+          <el-button type="text" size="small">
             编辑
           </el-button>
           <el-button
@@ -68,8 +68,8 @@
     <el-dialog :visible.sync="seeFrom">
       <el-form :model="form">
         <el-col :span="12">
-          <el-form-item label="姓名" >
-            <el-input style="width:220px" ></el-input>
+          <el-form-item label="姓名">
+            <el-input style="width:220px"></el-input>
           </el-form-item>
           <el-form-item label="年龄">
             <el-input style="width:220px" autocomplete="off"></el-input>
@@ -108,11 +108,11 @@
     <!-- 查看弹窗 -->
 
     <!-- 编辑弹窗 -->
-    <el-dialog title="编辑信息" :visible.sync="editFrom">
+    <el-dialog title="编辑信息" :visible.sync="dialogFormVisible">
       <el-form :model="form">
         <el-col :span="12">
           <el-form-item label="姓名">
-            <el-input style="width:220px" ></el-input>
+            <el-input style="width:220px"></el-input>
           </el-form-item>
           <el-form-item label="年龄">
             <el-input style="width:220px" autocomplete="off"></el-input>
@@ -143,8 +143,8 @@
         </el-col>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="editFrom = false">取 消</el-button>
-        <el-button type="primary" @click="editFrom = false"
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogFormVisible = false"
           >确 定</el-button
         >
       </div>
@@ -166,9 +166,9 @@ export default {
     return {
       select: '',
       seeFrom: false,
-      editFrom: false,
+      editFrom:
       form: {
-        name: '呜呜',
+        name: '',
         region: '',
         date1: '',
         date2: '',

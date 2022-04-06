@@ -68,7 +68,7 @@
     <el-dialog :visible.sync="seeFrom">
       <el-form :model="form">
         <el-col :span="12">
-          <el-form-item label="姓名" >
+          <el-form-item label="姓名">
             <el-input style="width:220px" ></el-input>
           </el-form-item>
           <el-form-item label="年龄">

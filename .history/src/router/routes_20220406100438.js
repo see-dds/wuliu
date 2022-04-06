@@ -50,24 +50,14 @@ const frameIn = [
         component: _import('demo/page3')
       },
       {
-        // 司机管理
+          //
         path: 'driverUser',
         name: 'driverUser',
         meta: {
-          title: '司机管理',
+          title: '司机',
           auth: true
         },
-        component: _import('driver/driver.vue')
-      },
-      {
-        // 车辆管理
-        path: 'driverCar',
-        name: 'driverCar',
-        meta: {
-          title: '车辆管理',
-          auth: true
-        },
-        component: _import('driver/car.vue')
+        component: _import('driver/driver')
       },
       // 系统 前端日志
       {
@@ -124,4 +114,8 @@ const errorPage = [
 export const frameInRoutes = frameIn
 
 // 重新组织后导出
-export default [...frameIn, ...frameOut, ...errorPage]
+export default [
+  ...frameIn,
+  ...frameOut,
+  ...errorPage
+]

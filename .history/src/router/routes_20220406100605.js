@@ -54,20 +54,19 @@ const frameIn = [
         path: 'driverUser',
         name: 'driverUser',
         meta: {
-          title: '司机管理',
+          title: '司机',
           auth: true
         },
-        component: _import('driver/driver.vue')
+        component: _import('driver/driver')
       },
       {
         // 车辆管理
-        path: 'driverCar',
-        name: 'driverCar',
-        meta: {
-          title: '车辆管理',
-          auth: true
-        },
-        component: _import('driver/car.vue')
+        path:'driverCar',
+        name:'driverCar'
+        meta{
+            title:'车辆管理',
+            auth:true,
+        }
       },
       // 系统 前端日志
       {

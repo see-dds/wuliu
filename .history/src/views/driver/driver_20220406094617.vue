@@ -68,8 +68,8 @@
     <el-dialog :visible.sync="seeFrom">
       <el-form :model="form">
         <el-col :span="12">
-          <el-form-item label="姓名" >
-            <el-input style="width:220px" ></el-input>
+          <el-form-item label="姓名">
+            <el-input style="width:220px"></el-input>
           </el-form-item>
           <el-form-item label="年龄">
             <el-input style="width:220px" autocomplete="off"></el-input>
@@ -107,12 +107,13 @@
 
     <!-- 查看弹窗 -->
 
-    <!-- 编辑弹窗 -->
+  </d2-container>
+   <!-- 编辑弹窗 -->
     <el-dialog title="编辑信息" :visible.sync="editFrom">
       <el-form :model="form">
         <el-col :span="12">
-          <el-form-item label="姓名">
-            <el-input style="width:220px" ></el-input>
+          <el-form-item label="1">
+            <el-input style="width:220px"></el-input>
           </el-form-item>
           <el-form-item label="年龄">
             <el-input style="width:220px" autocomplete="off"></el-input>
@@ -149,8 +150,6 @@
         >
       </div>
     </el-dialog>
-    <!-- 编辑弹窗 -->
-  </d2-container>
 </template>
 <!-- name: 'driverUser' -->
 <script>
@@ -168,7 +167,7 @@ export default {
       seeFrom: false,
       editFrom: false,
       form: {
-        name: '呜呜',
+        name: '',
         region: '',
         date1: '',
         date2: '',
