@@ -69,6 +69,16 @@ const frameIn = [
         },
         component: _import('driver/car.vue')
       },
+      {
+        // 运输追踪
+        path: 'location',
+        name: 'mapMarker',
+        meta: {
+          title: '运输追踪',
+          auth: true
+        },
+        component: _import('driver/mapMarker.vue')
+      },
       // 系统 前端日志
       {
         path: 'log',

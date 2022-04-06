@@ -1,32 +1,11 @@
 <template>
   <d2-container>
     <div slot="header" class="driverH">
-      条件搜索:
-      <el-input
-        style="width:400px"
-        placeholder="请输入内容"
-        class="input-with-select"
-      >
-        <el-select
-          style="width:100px"
-          v-model="select"
-          slot="prepend"
-          placeholder="请选择"
-        >
-          <el-option label="餐厅名" value="1"></el-option>
-          <el-option label="订单号" value="2"></el-option>
-          <el-option label="用户电话" value="3"></el-option>
-        </el-select>
-        <el-button slot="append">搜索</el-button>
-      </el-input>
+      <el-button>添加</el-button>
+      <el-input placeholder="请输入搜索内容" style="width:200px" />
+      <el-button type="primary">搜索</el-button>
     </div>
-    <el-table
-      :header-row-style="rowClass"
-      :data="tableData"
-      :show-header="true"
-      border
-      style="width: 100%"
-    >
+    <el-table :data="tableData" :show-header="true" border style="width: 100%">
       <el-table-column prop="date" label="序号" width="80"> </el-table-column>
       <el-table-column prop="date" label="登记时间" width="100">
       </el-table-column>
@@ -115,7 +94,7 @@
       <el-form :model="form">
         <el-col :span="12">
           <el-form-item label="姓名">
-            <el-input style="width:220px" ></el-input>
+            <el-input style="width:220px"></el-input>
           </el-form-item>
           <el-form-item label="年龄">
             <el-input style="width:220px" autocomplete="off"></el-input>
@@ -155,14 +134,21 @@
 </template>
 
 <script>
+import { getAllCar } from '@/apis/car'
+
 export default {
   name: 'driverCar',
   methods: {
-    rowClass ({ row, rowIndex }) {
-      console.log(rowIndex) // 表头行下标
-      return 'background:#ccc'
+    async getList () {
+      const res = await getAllCar()
+      console.log(res)
     }
   },
+
+  created () {
+    this.getList()
+  },
+
   data () {
     return {
       select: '',
@@ -178,112 +164,10 @@ export default {
         desc: ''
       },
 
-      tableData: [
-        {
-          date: '2016-05-02',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        },
-        {
-          date: '2016-05-04',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1517 弄',
-          zip: 200333
-        },
-        {
-          date: '2016-05-01',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1519 弄',
-          zip: 200333
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1516 弄',
-          zip: 200333
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1516 弄',
-          zip: 200333
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1516 弄',
-          zip: 200333
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1516 弄',
-          zip: 200333
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1516 弄',
-          zip: 200333
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1516 弄',
-          zip: 200333
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1516 弄',
-          zip: 200333
-        }
-      ]
+      tableData: []
     }
   }
 }
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//= ====='-._____'-.____ \_______/ ____.-'_____.-'======
-//                        '=---='
 </script>
 <style scoped>
 .cl {
