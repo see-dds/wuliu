@@ -21,7 +21,26 @@ const frameIn = [
         },
         component: _import('system/index')
       },
-      // 公告
+      // 演示页面
+      {
+        path: 'user',
+        name: 'user',
+        meta: {
+          title: '用户管理',
+          auth: true
+        },
+        component: _import('user/user')
+      },
+      // 角色管理页面
+      {
+        path: 'role',
+        name: 'role',
+        meta: {
+          title: '角色管理',
+          auth: true
+        },
+        component: _import('user/role')
+      },
       {
         path: 'notice',
         name: 'notice',
@@ -53,23 +72,40 @@ const frameIn = [
       },
       // 演示页面
       {
-        path: 'user',
-        name: 'user',
+        path: 'page1',
+        name: 'page1',
         meta: {
-          title: '用户管理',
+          title: '订单列表',
           auth: true
         },
-        component: _import('user/user')
+        component: _import('order/page1')
       },
-      // 角色管理页面
       {
-        path: 'role',
-        name: 'role',
+        path: 'page2',
+        name: 'page2',
         meta: {
-          title: '角色管理',
+          title: '新增订单',
           auth: true
         },
-        component: _import('user/role')
+        component: _import('order/page2')
+      },
+      {
+        path: 'page3',
+        name: 'page3',
+        meta: {
+          title: '订单调度',
+          auth: true
+        },
+        component: _import('order/page3')
+      },
+      {
+        path: 'page4',
+        name: 'page4',
+        meta: {
+          title: '单量管理',
+          auth: true
+        },
+        component: _import('order/page4')
       },
       {
         // 司机管理
