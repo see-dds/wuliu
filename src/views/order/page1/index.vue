@@ -71,7 +71,9 @@ export default {
     return {
       page: {
         total: 100,
-        currentPage: 1
+        currentPage: 1,
+        pageSize: 10, // currentPage当前页码，total总条数，pageSize每页多少条数据
+        pagerCount: 11 // 设置最大页码按钮数
       },
       limit: 10,
       data: [],
@@ -154,7 +156,7 @@ export default {
       const { page, limit } = this
       const res = await getAllOrder({ page, limit })
       this.data.data = res.data
-      this.total = res.data.page
+      this.total = Math.ceil(res.data.length / 10)
       console.log(this.data.data, this.total)
     }
 
