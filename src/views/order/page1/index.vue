@@ -2,34 +2,34 @@
   <d2-container>
     <template slot="header">订单列表</template>
     <el-row style="margin-bottom:20px;font-size:15px">
-      <el-col :span="4">等待加载框: <el-switch size="small"
-                   v-model="showLoading"> </el-switch>
+      <el-col :span="4"
+        >等待加载框: <el-switch size="small" v-model="showLoading"> </el-switch>
       </el-col>
-      <el-col :span="4">显示边框: <el-switch size="small"
-                   v-model="showBorder"> </el-switch>
+      <el-col :span="4"
+        >显示边框: <el-switch size="small" v-model="showBorder"> </el-switch>
       </el-col>
-      <el-col :span="4">显示斑马纹: <el-switch size="small"
-                   v-model="showStripe"> </el-switch>
+      <el-col :span="4"
+        >显示斑马纹: <el-switch size="small" v-model="showStripe"> </el-switch>
       </el-col>
-      <el-col :span="4">显示索引: <el-switch size="small"
-                   v-model="showIndex"> </el-switch>
+      <el-col :span="4"
+        >显示索引: <el-switch size="small" v-model="showIndex"> </el-switch>
       </el-col>
-      <el-col :span="4">显示多选框: <el-switch size="small"
-                   v-model="showCheckbox"> </el-switch>
+      <el-col :span="4"
+        >显示多选框:
+        <el-switch size="small" v-model="showCheckbox"> </el-switch>
       </el-col>
-      <el-col :span="4">显示表头: <el-switch size="small"
-                   v-model="showHeader"> </el-switch>
+      <el-col :span="4"
+        >显示表头: <el-switch size="small" v-model="showHeader"> </el-switch>
       </el-col>
-      <el-col :span="4">显示分页: <el-switch size="small"
-                   v-model="showPage"> </el-switch>
+      <el-col :span="4"
+        >显示分页: <el-switch size="small" v-model="showPage"> </el-switch>
       </el-col>
-      <el-col :span="4">卡片模式: <el-switch size="small"
-                   v-model="showCard"> </el-switch>
+      <el-col :span="4"
+        >卡片模式: <el-switch size="small" v-model="showCard"> </el-switch>
       </el-col>
     </el-row>
     <el-row style="margin-bottom:20px">
-      类型：<el-radio-group v-model="menuType"
-                      size="small">
+      类型：<el-radio-group v-model="menuType" size="small">
         <el-radio-button label="text">默认</el-radio-button>
         <el-radio-button label="icon">菜单按钮</el-radio-button>
         <el-radio-button label="text">文本按钮</el-radio-button>
@@ -37,26 +37,25 @@
       </el-radio-group>
     </el-row>
     <el-row style="margin-bottom:20px">
-      大小：<el-radio-group v-model="sizeValue"
-                      size="small">
+      大小：<el-radio-group v-model="sizeValue" size="small">
         <el-radio-button label="small">默认</el-radio-button>
         <el-radio-button label="medium">medium</el-radio-button>
         <el-radio-button label="small">small</el-radio-button>
         <el-radio-button label="mini">mini</el-radio-button>
       </el-radio-group>
     </el-row>
-    <avue-crud :data="data.data"
-               :option="option"
-               :table-loading="showLoading"
-               :page.sync="page">
+    <avue-crud
+      :data="data.data"
+      :option="option"
+      :table-loading="showLoading"
+      :page.sync="page"
+    >
       <!-- <template slot-scope="scope"
                 slot="menuBtn">
         <el-dropdown-item divided>自定义按钮</el-dropdown-item>
       </template> -->
-      <template slot-scope="{type,size}"
-                slot="menu">
-        <el-button :type="type"
-                   :size="size">自定义按钮</el-button>
+      <template slot-scope="{ type, size }" slot="menu">
+        <el-button :type="type" :size="size">自定义按钮</el-button>
       </template>
     </avue-crud>
   </d2-container>
@@ -108,38 +107,42 @@ export default {
         menuAlign: 'center',
         menuType: this.menuType,
         menuBtnTitle: '自定义名称',
-        column: [{
-          label: '订单号',
-          prop: 'orderID',
-          search: true
-        }, {
-          label: '订单状态',
-          prop: 'orderState',
-          search: true
-        }, {
-          label: '用户ID',
-          prop: 'userID',
-          search: true
-        }, {
-          label: '司机ID',
-          prop: 'driverID',
-          search: true
-        },
-        {
-          label: '预约时间',
-          prop: 'orderDate',
-          search: true
-        },
-        {
-          label: '车辆类型',
-          prop: 'carName',
-          search: true
-        },
-        {
-          label: '价格',
-          prop: 'price',
-          search: true
-        }
+        column: [
+          {
+            label: '订单号',
+            prop: 'orderID',
+            search: true
+          },
+          {
+            label: '订单状态',
+            prop: 'orderState',
+            search: true
+          },
+          {
+            label: '用户ID',
+            prop: 'userID',
+            search: true
+          },
+          {
+            label: '司机ID',
+            prop: 'driverID',
+            search: true
+          },
+          {
+            label: '预约时间',
+            prop: 'orderDate',
+            search: true
+          },
+          {
+            label: '车辆类型',
+            prop: 'carName',
+            search: true
+          },
+          {
+            label: '价格',
+            prop: 'price',
+            search: true
+          }
         ]
       }
     }
@@ -157,7 +160,6 @@ export default {
       this.total = res.data.page
       console.log(this.data.data, this.total)
     }
-
   }
 }
 </script>

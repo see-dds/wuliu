@@ -30,29 +30,29 @@
 <script>
 // import { defineComponent } from '@vue/composition-api'
 export default {
-  name: "noticeManage.vue",
-  data() {
-      return {
+  name: 'noticeManage.vue',
+  data () {
+    return {
       page: 1,
       limit: 20,
       tableDate: [],
       total: 0,
       noticleInfo: {
-          title: '', // 标题
-          cate: '', // 分类
-          content: '', // 内容
-          cover: '' // 封面
-      },
+        title: '', // 标题
+        cate: '', // 分类
+        content: '', // 内容
+        cover: '' // 封面
+      }
     }
   },
   methods: {
-      async getList () {
+    async getList () {
       const { page, limit } = this
       const res = await getAllNoticle({ page, limit })
       this.tableData = res.data.rows
-      console.log(res.data);
+      console.log(res.data)
       this.total = res.data.count
-    },
+    }
   }
-};
+}
 </script>

@@ -24,3 +24,8 @@ export const upOneCar = async data => {
   const res = await $api.post('/driver/updatecar', data)
   return res
 }
+// 查询车信息
+export const searchCar = async data => {
+  const res = await $api.post('/driver/searchCar', data)
+  return res
+}
