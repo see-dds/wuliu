@@ -100,7 +100,7 @@ export default {
         callback: action => {
           this.$message({
             type: 'info',
-            message: `action: ${action}`
+            message: ' action: $ { action } '
           })
         }
       })
@@ -145,7 +145,7 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style scoped >
 .el-input {
   width: 800px;
 }

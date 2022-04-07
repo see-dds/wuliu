@@ -7,7 +7,6 @@ import d2Admin from '@/plugin/d2admin'
 import Avue from '@smallwei/avue'
 import '@smallwei/avue/lib/index.css'
 import axios from 'axios'
-// import VueAxios from 'vue-axios'
 
 // store
 import store from '@/store/index'
@@ -22,7 +21,6 @@ Vue.prototype.api = $api
 // 核心插件
 Vue.use(d2Admin)
 Vue.use(Avue, { axios })
-// Vue.use(VueAxios, axios)
 
 Vue.mixin({
   data () {

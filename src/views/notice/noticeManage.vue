@@ -48,7 +48,7 @@ export default {
   methods: {
     async getList () {
       const { page, limit } = this
-      const res = await getAllNoticle({ page, limit })
+      const res = await getAllNoticle ({ page, limit })
       this.tableData = res.data.rows
       console.log(res.data)
       this.total = res.data.count
