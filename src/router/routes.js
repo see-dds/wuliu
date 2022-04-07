@@ -23,6 +23,55 @@ const frameIn = [
       },
       // 演示页面
       {
+        path: 'user',
+        name: 'user',
+        meta: {
+          title: '用户管理',
+          auth: true
+        },
+        component: _import('user/user')
+      },
+      // 角色管理页面
+      {
+        path: 'role',
+        name: 'role',
+        meta: {
+          title: '角色管理',
+          auth: true
+        },
+        component: _import('user/role')
+      },
+      {
+        path: 'notice',
+        name: 'notice',
+        meta: {
+          title: '公告',
+          auth: true
+        },
+        component: _import('notice/notice')
+      },
+      // 发送公告
+      {
+        path: 'sendNotice',
+        name: 'sendNotice',
+        meta: {
+          title: '发送公告',
+          auth: true
+        },
+        component: _import('notice/sendNotice')
+      },
+      // 公告管理
+      {
+        path: 'noticeManage',
+        name: 'noticeManage',
+        meta: {
+          title: '公告管理',
+          auth: true
+        },
+        component: _import('notice/noticeManage.vue')
+      },
+      // 演示页面
+      {
         path: 'page1',
         name: 'page1',
         meta: {
@@ -57,6 +106,36 @@ const frameIn = [
           auth: true
         },
         component: _import('order/page4')
+      },
+      {
+        // 司机管理
+        path: 'driverUser',
+        name: 'driverUser',
+        meta: {
+          title: '司机管理',
+          auth: true
+        },
+        component: _import('driver/driver.vue')
+      },
+      {
+        // 车辆管理
+        path: 'driverCar',
+        name: 'driverCar',
+        meta: {
+          title: '车辆管理',
+          auth: true
+        },
+        component: _import('driver/car.vue')
+      },
+      {
+        // 运输追踪
+        path: 'location',
+        name: 'mapMarker',
+        meta: {
+          title: '运输追踪',
+          auth: true
+        },
+        component: _import('driver/mapMarker.vue')
       },
       // 系统 前端日志
       {
@@ -113,8 +192,4 @@ const errorPage = [
 export const frameInRoutes = frameIn
 
 // 重新组织后导出
-export default [
-  ...frameIn,
-  ...frameOut,
-  ...errorPage
-]
+export default [...frameIn, ...frameOut, ...errorPage]
