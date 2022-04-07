@@ -21,36 +21,6 @@ const frameIn = [
         },
         component: _import('system/index')
       },
-      // 公告
-      {
-        path: 'notice',
-        name: 'notice',
-        meta: {
-          title: '公告',
-          auth: true
-        },
-        component: _import('notice/notice')
-      },
-      // 发送公告
-      {
-        path: 'sendNotice',
-        name: 'sendNotice',
-        meta: {
-          title: '发送公告',
-          auth: true
-        },
-        component: _import('notice/sendNotice')
-      },
-      // 公告管理
-      {
-        path: 'noticeManage',
-        name: 'noticeManage',
-        meta: {
-          title: '公告管理',
-          auth: true
-        },
-        component: _import('notice/noticeManage.vue')
-      },
       // 演示页面
       {
         path: 'page1',
@@ -84,30 +54,16 @@ const frameIn = [
         path: 'driverUser',
         name: 'driverUser',
         meta: {
-          title: '司机管理',
+          title: '司机',
           auth: true
         },
-        component: _import('driver/driver.vue')
+        component: _import('driver/driver')
       },
       {
         // 车辆管理
-        path: 'driverCar',
-        name: 'driverCar',
-        meta: {
-          title: '车辆管理',
-          auth: true
-        },
-        component: _import('driver/car.vue')
-      },
-      {
-        // 运输追踪
-        path: 'location',
-        name: 'mapMarker',
-        meta: {
-          title: '运输追踪',
-          auth: true
-        },
-        component: _import('driver/mapMarker.vue')
+        path:'driverCar',
+        name:'driverCar'
+        
       },
       // 系统 前端日志
       {

@@ -1,7 +1,7 @@
-import layoutHeaderAside from '@/layout/header-aside'
+import layoutHeaderAside from '@/layout/header-aside';
 
 // 由于懒加载页面太多的话会造成webpack热更新太慢，所以开发环境不使用懒加载，只有生产环境使用懒加载
-const _import = require('@/libs/util.import.' + process.env.NODE_ENV)
+const _import = require('@/libs/util.import.' + process.env.NODE_ENV);
 
 /**
  * 在主框架内显示
@@ -20,36 +20,6 @@ const frameIn = [
           auth: true
         },
         component: _import('system/index')
-      },
-      // 公告
-      {
-        path: 'notice',
-        name: 'notice',
-        meta: {
-          title: '公告',
-          auth: true
-        },
-        component: _import('notice/notice')
-      },
-      // 发送公告
-      {
-        path: 'sendNotice',
-        name: 'sendNotice',
-        meta: {
-          title: '发送公告',
-          auth: true
-        },
-        component: _import('notice/sendNotice')
-      },
-      // 公告管理
-      {
-        path: 'noticeManage',
-        name: 'noticeManage',
-        meta: {
-          title: '公告管理',
-          auth: true
-        },
-        component: _import('notice/noticeManage.vue')
       },
       // 演示页面
       {
@@ -84,10 +54,10 @@ const frameIn = [
         path: 'driverUser',
         name: 'driverUser',
         meta: {
-          title: '司机管理',
+          title: '司机',
           auth: true
         },
-        component: _import('driver/driver.vue')
+        component: _import('driver/driver')
       },
       {
         // 车辆管理
@@ -97,17 +67,7 @@ const frameIn = [
           title: '车辆管理',
           auth: true
         },
-        component: _import('driver/car.vue')
-      },
-      {
-        // 运输追踪
-        path: 'location',
-        name: 'mapMarker',
-        meta: {
-          title: '运输追踪',
-          auth: true
-        },
-        component: _import('driver/mapMarker.vue')
+        component: _import('driver/car')
       },
       // 系统 前端日志
       {
@@ -135,7 +95,7 @@ const frameIn = [
       }
     ]
   }
-]
+];
 
 /**
  * 在主框架之外显示
@@ -147,7 +107,7 @@ const frameOut = [
     name: 'login',
     component: _import('system/login')
   }
-]
+];
 
 /**
  * 错误页面
@@ -158,10 +118,10 @@ const errorPage = [
     name: '404',
     component: _import('system/error/404')
   }
-]
+];
 
 // 导出需要显示菜单的
-export const frameInRoutes = frameIn
+export const frameInRoutes = frameIn;
 
 // 重新组织后导出
-export default [...frameIn, ...frameOut, ...errorPage]
+export default [...frameIn, ...frameOut, ...errorPage];
