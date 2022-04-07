@@ -1,13 +1,14 @@
 import $api from './index'
 
-// 后台接口
+// 后台订单接口
 export const getAllOrder = async (data) => {
   const res = await $api.get('/order/findOrderAll', data)
   return res
 }
 
 export const addOrder = async (data) => {
-  return await $api.post('/order/addOrder', data)
+  const res = await $api.post('/order/addOrder', data)
+  return res
 }
 
 // export const addSong = async (data) => {

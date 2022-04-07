@@ -18,8 +18,8 @@
   </d2-container>
 </template>
 <script>
-import Axios from 'axios'
-// import addOrder from '@/apis/song'
+// import Axios from 'axios'
+import { addOrder } from '@/apis/order'
 var DIC = {
   VAILD: [{
     label: '微型货车',
@@ -56,7 +56,7 @@ export default {
           label: '客户id',
           prop: 'username',
           tip: '这是信息提示',
-          span: 8,
+          span: 6,
           maxlength: 10, // 设置最大文本框字体长度
           showWordLimit: true, // 显示字体长度
           suffixIcon: 'el-icon-tickets',
@@ -193,14 +193,15 @@ export default {
   methods: {
     async upload () {
       const { username, name, string, datetime, car, State, price, address1, address2 } = this.obj
-      // await addOrder({ driverID: name, userID: username, orderID: string, orderDate: datetime, carName: car, orderState: State, price: price, startAddr: address1, endAddr: address2 })
-      Axios.post('/order/addOrder', { driverID: name, userID: username, orderID: string, orderDate: datetime, carName: car, orderState: State, price: price, startAddr: address1, endAddr: address2 }, {
-        baseURL: 'http://127.0.0.1:3001/api/v1'
-      }).then(res => {
-        console.log(res)
-      }).catch(error => {
-        console.log(error.data)
-      })
+      const res = await addOrder({ driverID: name, userID: username, orderID: string, orderDate: datetime, carName: car, orderState: State, price: price, startAddr: address1, endAddr: address2 })
+      console.log(res)
+      // Axios.post('/order/addOrder', { driverID: name, userID: username, orderID: string, orderDate: datetime, carName: car, orderState: State, price: price, startAddr: address1, endAddr: address2 }, {
+      //   baseURL: 'http://127.0.0.1:3001/api/v1'
+      // }).then(res => {
+      //   console.log(res)
+      // }).catch(error => {
+      //   console.log(error.data)
+      // })
     },
     emptytChange () {
       this.$message.success('清空数据')

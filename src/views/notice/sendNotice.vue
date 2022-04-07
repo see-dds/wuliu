@@ -1,6 +1,6 @@
 <template>
   <d2-container>
-    <el-form ref="form" 
+    <el-form ref="form"
     :model="form"
     label-position="left"
     label-width="100px">
@@ -79,8 +79,8 @@
 <script>
 // import { page } from '@vue/composition-api'
 export default {
-  name: "sendNotice",
-  data() {
+  name: 'sendNotice',
+  data () {
     return {
       page: 1,
       limit: 20,
@@ -88,63 +88,64 @@ export default {
       total: 0,
       form: {},
       props: {
-          label: 'name',
-          children: 'zones',
-          isLeaf: 'leaf'
-        },
+        label: 'name',
+        children: 'zones',
+        isLeaf: 'leaf'
+      },
       site: false,
       staff: false
-    };
+    }
   },
   methods: {
-      staff() {
-        this.$alert('这是一段内容', '标题名称', {
-          confirmButtonText: '确定',
-          callback: action => {
-            this.$message({
-              type: 'info',
-              message: `action: ${ action }`
-            });
-          }
-        });
-      },
-      sendClick() {
+    // eslint-disable-next-line vue/no-dupe-keys
+    staff () {
+      this.$alert('这是一段内容', '标题名称', {
+        confirmButtonText: '确定',
+        callback: action => {
           this.$message({
-          showClose: true,
-          message: '请输入公告内容',
-          type: 'warning'
-        });
-      },
-      rejectSite() {
-
-      },
-      loadNode(node, resolve) {
-        if (node.level === 0) {
-          return resolve([{ name: '全部' }]);
+            type: 'info',
+            message: ' action: $ { action } '
+          })
         }
-        if (node.level > 1) return resolve([]);
+      })
+    },
+    sendClick () {
+      this.$message({
+        showClose: true,
+        message: '请输入公告内容',
+        type: 'warning'
+      })
+    },
+    rejectSite () {
 
-        setTimeout(() => {
-          const data = [{
-            name: '广州千锋网点',
-            leaf: true
-          }, {
-            name: '学三文化网点'
-          },{
-            name: '学三文化网点'
-          },{
-            name: '学三文化网点'
-          },{
-            name: '学三文化网点'
-          }];
-
-          resolve(data);
-        }, 500);
+    },
+    loadNode (node, resolve) {
+      if (node.level === 0) {
+        return resolve([{ name: '全部' }])
       }
+      if (node.level > 1) return resolve([])
+
+      setTimeout(() => {
+        const data = [{
+          name: '广州千锋网点',
+          leaf: true
+        }, {
+          name: '学三文化网点'
+        }, {
+          name: '学三文化网点'
+        }, {
+          name: '学三文化网点'
+        }, {
+          name: '学三文化网点'
+        }]
+
+        resolve(data)
+      }, 500)
     }
-};
+  }
+}
 </script>
-<style>
+<style scoped lang="scss" >
     .el-input {
         width: 800px;
     }

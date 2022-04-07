@@ -41,36 +41,7 @@ const frameIn = [
         },
         component: _import('user/role')
       },
-      {
-        path: 'notice',
-        name: 'notice',
-        meta: {
-          title: '公告',
-          auth: true
-        },
-        component: _import('notice/notice')
-      },
-      // 发送公告
-      {
-        path: 'sendNotice',
-        name: 'sendNotice',
-        meta: {
-          title: '发送公告',
-          auth: true
-        },
-        component: _import('notice/sendNotice')
-      },
-      // 公告管理
-      {
-        path: 'noticeManage',
-        name: 'noticeManage',
-        meta: {
-          title: '公告管理',
-          auth: true
-        },
-        component: _import('notice/noticeManage.vue')
-      },
-      // 演示页面
+      // 订单页面
       {
         path: 'page1',
         name: 'page1',
@@ -106,6 +77,35 @@ const frameIn = [
           auth: true
         },
         component: _import('order/page4')
+      },
+      {
+        path: 'notice',
+        name: 'notice',
+        meta: {
+          title: '公告',
+          auth: true
+        },
+        component: _import('notice/notice')
+      },
+      // 发送公告
+      {
+        path: 'sendNotice',
+        name: 'sendNotice',
+        meta: {
+          title: '发送公告',
+          auth: true
+        },
+        component: _import('notice/sendNotice')
+      },
+      // 公告管理
+      {
+        path: 'noticeManage',
+        name: 'noticeManage',
+        meta: {
+          title: '公告管理',
+          auth: true
+        },
+        component: _import('notice/noticeManage.vue')
       },
       {
         // 司机管理

@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { getAllOrder } from '@/apis/song'
+import { getAllOrder } from '@/apis/order'
 export default {
   name: 'page1',
   data () {
@@ -156,8 +156,8 @@ export default {
       const { page, limit } = this
       const res = await getAllOrder({ page, limit })
       this.data.data = res.data
-      this.total = Math.ceil(res.data.length / 10)
-      console.log(this.data.data, this.total)
+      this.page.total = Math.ceil(res.data.length / 10)
+      console.log(this.data.data, this.page.total)
     }
 
   }
