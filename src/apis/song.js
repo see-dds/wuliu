@@ -9,14 +9,6 @@ export const getAllOrder = async (data) => {
 export const addOrder = async (data) => {
   return await $api.post('/order/addOrder', data)
 }
-
-// export const addSong = async (data) => {
-//   return await $api.post('/song/add', data)
-// }
-// export const delSong = async (data) => {
-//   return await $api.post('/song/del', data)
-// }
-
-// export const updateSong = async (data) => {
-//   return await $api.post('/song/update', data)
-// }
+export const getOneRole = async (data) => {
+  return await $api.post('/admin/getOneRole', data)
+}

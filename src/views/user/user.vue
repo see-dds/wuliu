@@ -7,35 +7,41 @@
       <el-input placeholder="请输入用户名称" style="width:200px"/>
       <el-button>搜索</el-button>
     </div>
-    <el-table :data="tableData" stripe>
+    <el-table :data="adminList" stripe>
       <el-table-column label="序号" align="center" width="50" type="index"/>
       <el-table-column prop='phone' align="center" label="登录账号" width="150"/>
-      <!--      <el-table-column prop='pwd' label="密码" width="120"/>-->
       <el-table-column prop='name' align="center" label="姓名" width="120"/>
       <el-table-column prop='phone' align="center" label="电话" width="140"/>
       <el-table-column prop='pwd' align="center" label="密码" width="140"/>
-      <el-table-column label="角色" align="center" width="140">
-        <template slot-scope="scope">
-          {{ scope.row.groupID | typeTxt }}
-        </template>
+      <el-table-column prop="_group" label="角色" align="center" width="140">
       </el-table-column>
       <el-table-column label="创建时间" align="center" width="150">
-        {{ createdAt|format('YYYY-MM-DD') }}
+        <!--        {{ createdAt|format('YYYY-MM-DD') }}-->
       </el-table-column>
+      <!--      <el-table-column prop='state' align="center" label="状态" width="140">-->
+      <!--        <el-switch-->
+      <!--          style="display: block"-->
+      <!--          v-model="value1"-->
+      <!--          active-color="#13ce66"-->
+      <!--          inactive-color="#ff4949"-->
+      <!--          active-text="正常"-->
+      <!--          inactive-text="封禁">-->
+      <!--        </el-switch>-->
+      <!--      </el-table-column>-->
       <el-table-column style="{display: flex}" label="操作" align="center">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="编辑" placement="left">
             <el-button type="primary" icon="el-icon-edit" circle size='small'
                        @click="handleEdit(scope.row)"></el-button>
           </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="删除" placement="top">
+          <el-tooltip class="item" effect="dark" content="删除" placement="right">
             <el-button type="danger" icon="el-icon-delete" circle size='small'
                        @click="handleDel(scope.row)"></el-button>
           </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="分配角色" placement="right">
-            <el-button type="success" icon="el-icon-check" circle size='small'
-                       @click="handleRoleChange(scope.row)"></el-button>
-          </el-tooltip>
+          <!--          <el-tooltip class="item" effect="dark" content="分配角色" placement="right">-->
+          <!--            <el-button type="success" icon="el-icon-check" circle size='small'-->
+          <!--                       @click="handleRole(scope.row)"></el-button>-->
+          <!--          </el-tooltip>-->
         </template>
       </el-table-column>
     </el-table>
@@ -56,14 +62,14 @@
       :visible.sync="showAddBox"
       width="800px"
       center>
-      <el-form :model="adminInfo" size="mini" label-width="120px">
-        <el-form-item label="用户名称">
+      <el-form :model="adminInfo" :rules="adminAddRule" size="medium" label-width="120px">
+        <el-form-item prop="name" label="用户名称">
           <el-input v-model="adminInfo.name" placeholder="请输入用户名称"></el-input>
         </el-form-item>
-        <el-form-item label="登录账号">
+        <el-form-item prop="phone" label="登录账号">
           <el-input v-model="adminInfo.phone" placeholder="请输入登录账号"></el-input>
         </el-form-item>
-        <el-form-item label="密码">
+        <el-form-item prop="pwd" label="密码">
           <el-input v-model="adminInfo.pwd" placeholder="请输入密码"></el-input>
         </el-form-item>
       </el-form>
@@ -80,15 +86,28 @@
       :visible.sync="showEditBox"
       width="800px"
       center>
-      <el-form :model="adminInfo" size="mini" label-width="120px">
+      <el-form :model="adminInfo" :rules="adminAddRule" size="mini" label-width="120px">
         <el-form-item label="用户名称">
-          <el-input v-model="adminInfo.name" placeholder="请输入用户名称"></el-input>
+          <el-input prop="name" v-model="adminInfo.name" placeholder="请输入用户名称"></el-input>
         </el-form-item>
-        <el-form-item label="登录账号">
+        <el-form-item prop="phone" label="登录账号">
           <el-input v-model="adminInfo.phone" placeholder="请输入登录账号"></el-input>
         </el-form-item>
-        <el-form-item label="密码">
+        <el-form-item prop="pwd" label="密码">
           <el-input v-model="adminInfo.pwd" placeholder="请输入密码"></el-input>
+        </el-form-item>
+        <el-form-item label="角色">
+          <el-select
+            v-model="adminInfo.groupID"
+            @change="changeRole"
+            placeholder="请选择角色">
+            <el-option
+              v-for="item in roleList"
+              :label="item.name"
+              :key="item._id"
+              :value="item._id">
+            </el-option>
+          </el-select>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -97,29 +116,6 @@
       </span>
     </el-dialog>
     <!--  编辑弹窗结束  -->
-
-    <!--  修改角色的弹窗  -->
-    <el-dialog
-      title="修改角色"
-      :visible.sync="showRoleBox"
-      width="800px"
-      center>
-      <el-form :model="adminInfo" size="mini" label-width="120px">
-        <el-form-item label="角色">
-          <el-radio-group v-model="adminInfo.groupID" size="small">
-            <el-radio-button :label="1">超级管理员</el-radio-button>
-            <el-radio-button :label="2">主管</el-radio-button>
-            <el-radio-button :label="3">普通用户</el-radio-button>
-            <el-radio-button :label="4">财务</el-radio-button>
-          </el-radio-group>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-          <el-button @click="showAddBox = false">取 消</el-button>
-          <el-button type="primary" @click="confirmEdit">确 定</el-button>
-      </span>
-    </el-dialog>
-    <!--  修改角色的弹窗 end -->
   </d2-container>
 </template>
 <script>
@@ -127,23 +123,45 @@ export default {
   name: 'user.vue',
   data () {
     return {
+      // value1: true,
       page: 1,
       limit: 10,
-      tableData: [],
       total: 0,
       showAddBox: false,
       showEditBox: false,
       showRoleBox: false,
-      adminInfo: {
-        name: '',
-        phone: '',
-        pwd: '',
-        groupID: 1
+      adminList: [],
+      adminInfo: {},
+      roleList: [],
+      roleInfo: {},
+      adminAddRule: {
+        name: [
+          {
+            required: true,
+            message: '请输入用户名',
+            trigger: 'blur'
+          }
+        ],
+        phone: [
+          {
+            required: true,
+            message: '请输入账号',
+            trigger: 'blur'
+          }
+        ],
+        pwd: [
+          {
+            required: true,
+            message: '请输入密码',
+            trigger: 'blur'
+          }
+        ]
       }
     }
   },
   created () {
     this.getList()
+    this.getroles()
   },
   watch: {
     page () {
@@ -151,6 +169,10 @@ export default {
     }
   },
   methods: {
+    async getroles () {
+      const res = await this.api.post('/admin/getRoles')
+      this.roleList = res.data.rolelist
+    },
     async getList () {
       const {
         page,
@@ -160,16 +182,14 @@ export default {
         page,
         limit
       })
-      this.tableData = res.data.admins
+      this.adminList = res.data._res
       this.total = res.data.count
     },
     handleSizeChange (val) {
-      // console.log(`每页 ${val} 条`)
       this.limit = val
       this.getList()
     },
     handleCurrentChange (val) {
-      console.log(`当前页: ${val}`)
       this.page = val
     },
     async handleAdd () {
@@ -179,9 +199,15 @@ export default {
       this.$notify.success('添加成功')
       this.getList()
       this.showAddBox = false
-      this.resetFields()
+      // this.resetFields()
+      this.adminInfo = {
+        name: '',
+        phone: '',
+        pwd: ''
+      }
     },
     handleEdit (row) {
+      console.log('row', row)
       this.adminInfo = row
       this.showEditBox = true
     },
@@ -196,7 +222,6 @@ export default {
       this.$notify.success('修改成功')
       this.getList()
       this.showEditBox = false
-      this.showRoleBox = false
     },
     handleDel (row) {
       console.log('row', row)
@@ -211,17 +236,8 @@ export default {
         this.getList()
       })
     },
-    handleRoleChange (row) {
-      this.adminInfo = row
-      this.showRoleBox = true
-    }
-  },
-  filters: {
-    typeTxt (val) {
-      if (val === 1) return '超级管理员'
-      if (val === 2) return '主管'
-      if (val === 3) return '普通用户'
-      if (val === 4) return '财务'
+    changeRole (val) {
+      this.roleInfo.id = val.id
     }
   }
 }
