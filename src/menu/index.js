@@ -56,5 +56,18 @@ export const menuAside = supplementPath([
       { path: '/user', icon: 'user', title: '用户管理' },
       { path: '/role', icon: 'user-secret', title: '角色管理' }
     ]
+  }, {
+    title: '财务管理',
+    icon: 'credit-card-alt ',
+    children: [
+      { path: '/detailed', title: '财务报表汇总', icon: 'list-alt' }
+    ]
+  },
+  {
+    title: '客户管理',
+    icon: 'user-circle-o',
+    children: [
+      { path: '/maintain', title: '客户维护', icon: 'hotel' }
+    ]
   }
 ])

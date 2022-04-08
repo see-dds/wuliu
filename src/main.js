@@ -1,5 +1,7 @@
 // Vue
 import Vue from 'vue'
+import AMapJS from 'amap-js'
+import VueAMap from 'vue-amap'
 import i18n from './i18n'
 import App from './App'
 // 核心插件
@@ -21,7 +23,14 @@ Vue.prototype.api = $api
 // 核心插件
 Vue.use(d2Admin)
 Vue.use(Avue, { axios })
-
+Vue.use(VueAMap)
+Vue.use(AMapJS)
+VueAMap.initAMapApiLoader({
+  key: '2bf841e0f4a09f201a51c3e2dfa90297',
+  plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor'],
+  v: '1.4.15',
+  uiVersion: '1.1'
+})
 Vue.mixin({
   data () {
     return {

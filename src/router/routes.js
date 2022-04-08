@@ -137,6 +137,26 @@ const frameIn = [
         },
         component: _import('driver/mapMarker.vue')
       },
+      {
+        // 财务报表明细
+        path: 'detailed',
+        name: 'detailed',
+        meta: {
+          title: '财务报表明细',
+          auth: true
+        },
+        component: _import('finance/detailed.vue')
+      },
+      {
+        // 客户管理
+        path: 'maintain',
+        name: 'maintain',
+        meta: {
+          title: '客户管理',
+          auth: true
+        },
+        component: _import('client/maintain.vue')
+      },
       // 系统 前端日志
       {
         path: 'log',

@@ -167,14 +167,17 @@ export default {
     },
     async getSearch () {
       const res = await searchCar({ carType: this.input })
-      this.tableData = res.data
-      this.tableData.map(item => {
-        item.driverInfo.map(imte => {
-          if (imte._id === item.userId) {
-            item.userId = imte.driverRealName
-          }
-        })
-      })
+      console.log(res)
+    //   this.tableData = res.data
+      //   console.log(this.tableData)
+    //   this.tableData.map(item => {
+    //     // console.log(item.driverInfo)
+    //     item.driverInfo.map(imte => {
+    //       if (imte._id === item.userId) {
+    //         item.userId = imte.driverRealName
+    //       }
+    //     })
+    //   })
     },
     handleSizeChange (val) {
       console.log(`每页 ${val} 条`)
