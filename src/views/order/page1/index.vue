@@ -55,7 +55,9 @@
                @refresh-change="refreshChange"
                @row-save="rowSave"
                @row-update="rowUpdate"
-               @row-del="rowDel">
+               @row-del="rowDel"
+               @search-change="searchChange"
+               @search-reset="resetChange">
       <!-- <template slot-scope="scope"
                 slot="menuBtn">
         <el-dropdown-item divided>自定义按钮</el-dropdown-item>
@@ -70,7 +72,7 @@
 </template>
 
 <script>
-import { getAllOrder, updataOrder, deletOrder } from '@/apis/order'
+import { getAllOrder, updataOrder, deletOrder, findOrderByState, findOrderOne, findUserID, findDriverID } from '@/apis/order'
 export default {
   name: 'page1',
   data () {
@@ -94,15 +96,22 @@ export default {
       sizeValue: 'small'
     }
   },
-  mounted () {
-    setTimeout(() => {
-      this.$nextTick(() => {
-        this.showLoading = false
-        // 这里是重点～～～
-        this.$refs.crud.init()
-      })
-    }, 200)
-  },
+  // mounted () {
+  //   setTimeout(() => {
+  //     this.$nextTick(() => {
+  //       this.showLoading = true
+  //       // 这里是重点～～～
+  //       this.$refs.crud.init()
+  //     })
+  //   }, 200)
+  //   setTimeout(() => {
+  //     this.$nextTick(() => {
+  //       this.showLoading = false
+  //       // 这里是重点～～～
+  //       this.$refs.crud.init()
+  //     })
+  //   }, 200)
+  // },
   computed: {
     option () {
       return {
@@ -146,17 +155,17 @@ export default {
         {
           label: '预约时间',
           prop: 'orderDate',
-          search: true
+          search: false
         },
         {
           label: '车辆类型',
           prop: 'carName',
-          search: true
+          search: false
         },
         {
           label: '价格',
           prop: 'price',
-          search: true
+          search: false
         }
         ]
       }
@@ -173,20 +182,7 @@ export default {
       console.log(res.data)
       this.data.data = res.data.one
       this.page.total = res.data.total
-      setTimeout(() => {
-        this.$nextTick(() => {
-          this.showLoading = true
-          // 这里是重点～～～
-          this.$refs.crud.init()
-        })
-      }, 200)
-      setTimeout(() => {
-        this.$nextTick(() => {
-          this.showLoading = false
-          // 这里是重点～～～
-          this.$refs.crud.init()
-        })
-      }, 200)
+      this.loaDing()
     },
     // 修改行数
     sizeChange (val) {
@@ -227,12 +223,11 @@ export default {
         type: 'warning'
       }).then(() => {
         done(form)
-        const res = deletOrder() // 删除数据请求
-        console.log(res)
         this.$message({
           type: 'success',
           message: '删除成功!'
         })
+        deletOrder({ orderID: form.orderID, userID: form.userID }) // 删除数据请求
       }).catch(() => { })
     },
     // 编辑数据
@@ -244,10 +239,63 @@ export default {
       }, 1000)
       setTimeout(() => {
         this.$message.success('编辑数据' + JSON.stringify(form) + '数据序号' + index)
-        const res = updataOrder({ userID: form.userID, orderID: form.orderID }, {}) // 编辑数据请求
-        console.log(res, form.userID, form.orderID)
+        updataOrder({ orderID: form.orderID, userID: form.userID, orderDate: form.orderDate, driverID: form.driverID, orderState: +form.orderState, carName: form.carName }) // 编辑数据请求
         done(form)
       }, 2000)
+    },
+    resetChange (item) {
+      this.$message.success('清空回调')
+    },
+    searchChange (params, done) {
+      this.$message.success('1s后关闭锁定')
+      setTimeout(() => {
+        done()
+        this.$message.success(JSON.stringify(params))
+        if (params.orderID) { // 通过订单号查询
+          findOrderOne({ orderID: params.orderID }).then(res => {
+            this.data.data = res.data
+            console.log(this.data.data)
+            this.loaDing()
+          })
+        }
+        if (params.orderState) { // 通过订单状态查询
+          findOrderByState({ orderState: params.orderState }).then(res => {
+            console.log(res.data)
+            this.data.data = res.data
+            this.loaDing()
+          })
+        }
+        if (params.userID) { // 根据客户ID查询
+          findUserID({ userID: params.userID }).then(res => {
+            console.log(res.data)
+            this.data.data = res.data
+            this.loaDing()
+          })
+        }
+        if (params.driverID) { // 根据司机ID查询
+          findDriverID({ driverID: params.driverID }).then(res => {
+            console.log(res.data)
+            this.data.data = res.data
+            this.loaDing()
+          })
+        }
+      }, 1000)
+    },
+    loaDing () {
+      setTimeout(() => {
+        this.$nextTick(() => {
+          this.showLoading = true
+          // 这里是重点～～～
+          // this.$refs.crud.init()
+        })
+      }, 200)
+      setTimeout(() => {
+        this.$nextTick(() => {
+          this.showLoading = false
+          // 这里是重点～～～
+          this.$refs.crud.init()
+        })
+      }, 200)
     }
   }
 }

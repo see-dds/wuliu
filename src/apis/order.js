@@ -19,7 +19,22 @@ export const updataOrder = async (data) => {
 export const deletOrder = async (data) => {
   return await $api.post('/order/deletOrder', data)
 }
-
-// export const updateSong = async (data) => {
-//   return await $api.post('/song/update', data)
-// }
+// 查询单个数据 根据订单状态查询
+export const findOrderByState = async (data) => {
+  return await $api.post('/order/findOrderByState', data)
+}
+// 根据订单号查询
+export const findOrderOne = async (data) => {
+  const res = await $api.post('/order/findOrderOne', data)
+  return res
+}
+// 根据客户ID查询
+export const findUserID = async (data) => {
+  const res = await $api.post('/order/findUserID', data)
+  return res
+}
+// 根据司机ID查询
+export const findDriverID = async (data) => {
+  const res = await $api.post('/order/findDriverID', data)
+  return res
+}
