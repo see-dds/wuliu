@@ -1,238 +1,263 @@
 <template>
-  <div>
-    <div class="search-box">
-      <el-input
-        v-model="searchKey"
-        type="search"
-        id="search"
-        placeholder="请输入详细地址"
-      ></el-input>
-      <!--<button @click="searchByHand">搜索</button>-->
-      <div class="tip-box" id="searchTip"></div>
-    </div>
-    <!--
-      amap-manager： 地图管理对象
-      vid：地图容器节点的ID
-      zooms： 地图显示的缩放级别范围，在PC上，默认范围[3,18]，取值范围[3-18]；在移动设备上，默认范围[3-19]，取值范围[3-19]
-      center： 地图中心点坐标值
-      plugin：地图使用的插件
-      events： 事件
-    -->
-    <div class="amap-box">
-      <el-amap
-        :amap-manager="amapManager"
-        :vid="'amap-vue'"
-        :zoom="zoom"
-        :plugin="plugin"
-        :center="center"
-        :events="events"
+  <d2-container>
+      <div
+    class="amap-page-container"
+    style=" height: 400px; margin-bottom: 200px; background: #ccc"
+  >
+    <el-amap-search-box
+      class="search-box"
+      :search-option="searchOption"
+      :on-search-result="onSearchResult"
+    ></el-amap-search-box>
+    <el-amap
+      vid="amapDemo"
+      :center="center"
+      :zoom="zoom"
+      class="amap-demo"
+      :plugin="plugin"
+      :events="events"
+    >
+      <el-amap-marker
+        v-for="(marker, index) in markers"
+        :position="marker"
+        :key="'marker' + index"
+      ></el-amap-marker>
+    </el-amap>
+    <div class="toolbar" v-if="loaded">
+      <div
+        style="font-size:15px;margin:10px 0px 10px 10px; border-bottom: 1px solid #e6e6e6;"
       >
-        <!-- 标记 -->
-        <el-amap-marker
-          v-for="(marker, index) in markers"
-          :position="marker"
-          :key="index"
-        ></el-amap-marker>
-      </el-amap>
+        定位地址: {{ address }}
+      </div>
+    </div>
+    <div v-else>正在定位</div>
+    <div class="addressList">
+      <div
+        class="item"
+        v-for="(item, index) in addressList"
+        :key="index"
+        @click="sendMapMsg(item)"
+      >
+        <div class="content">
+          <div class="name">{{ item.name }}</div>
+          <div class="address">{{ item.address }}</div>
+        </div>
+      </div>
     </div>
   </div>
+</d2-container>
 </template>
+
 <script>
-import { AMapManager, lazyAMapApiLoaderInstance } from 'vue-amap'
-const amapManager = new AMapManager()
 export default {
-  props: ['city', 'value', 'longitude', 'latitude', 'isEdit'],
-  data () {
+  data: function () {
     const self = this
+
     return {
-      address: null,
-      searchKey: '',
-      amapManager,
       markers: [],
       searchOption: {
-        city: this.city ? this.city : '全国',
-        citylimit: true
+        city: '全国',
+        citylimit: false
       },
-      center: [121.329402, 31.228667],
-      zoom: 17,
-      lng: 0,
-      lat: 0,
+      zoom: 12,
       loaded: false,
+      center: [121.59996, 31.197646],
+      plugin: [
+        {
+          pName: 'Geolocation',
+          // 是否使用高精度定位，默认true
+          enableHighAccuracy: true,
+          // // 超过10秒后停止定位，默认：无穷大
+          // timeout: 10000,
+          // // 自动偏移后的坐标为高德坐标，默认：true
+          convert: true,
+          // // 显示定位按钮，默认：true
+          showButton: true,
+          // // 定位按钮停靠位置，默认'LB'，左下角
+          buttonPosition: 'RB',
+          // // 定位成功后在定位到的位置显示标记，默认：true
+          showMarker: true,
+          // 定位成功后用圆圈表示定位精度范围，默认：true
+          showCircle: true,
+          // // 定位成功后将定位到的位置作为地图中心点，默认true
+          panToLocation: true,
+          // // 定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+          zoomToAccuracy: true,
+          events: {
+            init (o) {
+              console.log('o高德插件初始化成功')
+              const addressInfo =
+                JSON.parse(sessionStorage.getItem('addressInfo')) || {}
+              console.log('这是地址信息', addressInfo)
+              var placeSearch = new AMap.PlaceSearch()
+              if (addressInfo.name && addressInfo.lng && addressInfo.lat) {
+                console.log('已有位置信息')
+                self.lng = addressInfo.lng
+                self.lat = addressInfo.lat
+                self.center = [addressInfo.lng, addressInfo.lat]
+                self.address = addressInfo.address
+
+                console.log(addressInfo.name)
+                placeSearch.search(addressInfo.name, function (status, result) {
+                  console.log('定位结果')
+                  console.log(result)
+                  if (result.poiList.pois.length >= 1) {
+                    self.addressList = result.poiList.pois
+                    self.selectedAddress = addressInfo
+
+                    console.log('地址列表', self.addressList)
+                    console.log('当前地址', self.selectedAddress)
+                    const isSelectIndex = self.addressList.findIndex(
+                      i => i.id === self.selectedAddress.id
+                    )
+                    console.log('==')
+                    console.log(isSelectIndex)
+                    if (isSelectIndex !== -1) {
+                      self.addressList[isSelectIndex].selected = true
+                    } else {
+                      self.addressList[0].selected = true
+                    }
+                    self.loaded = true
+                    self.$nextTick()
+                  } else {
+                    self.loaded = true
+                  }
+                })
+              } else {
+                // o 是高德地图定位插件实例
+
+                o.getCurrentPosition((status, result) => {
+                  if (result && result.position) {
+                    console.log('获取当前位置信息')
+                    console.log(result)
+                    self.lng = result.position.lng
+                    self.lat = result.position.lat
+                    self.center = [self.lng, self.lat]
+                    // 定位地址
+
+                    self.address = result.formattedAddress
+                    console.log(result, '000')
+
+                    placeSearch.search(self.address, function (
+                      status,
+                      resultTemp
+                    ) {
+                      console.log(resultTemp)
+                      if (resultTemp.poiList.pois.length >= 1) {
+                        console.log('获取定位地址附近列表')
+                        console.log(resultTemp)
+                        self.addressList = resultTemp.poiList.pois
+                      }
+                    })
+
+                    //  为什么要加这一行  没有地址的时候 拿当前定位  但不显示列表
+                    //  列表是要通过 地址名的 formattedAddress
+                    // self.addressList=self.addressList.concat(obj1)
+
+                    self.loaded = true
+                    self.$nextTick()
+                  } else {
+                    self.loaded = true
+                  }
+                })
+              }
+            }
+          }
+        }
+      ],
+
+      address: '',
       events: {
-        init () {
-          lazyAMapApiLoaderInstance.load().then(() => {
-            self.initSearch()
-          })
-        },
-        // 点击获取地址的数据
         click (e) {
-          self.markers = []
+          console.log(e)
+          console.log('点击的地址', self.address)
+          console.log('这是点击事件集合', self)
           const { lng, lat } = e.lnglat
           self.lng = lng
           self.lat = lat
-          self.center = [lng, lat]
-          self.markers.push([lng, lat])
+
           // 这里通过高德 SDK 完成。
-          const geocoder = new AMap.Geocoder({
-            radius: 1000,
-            extensions: 'all'
+          //   var geocoder = new AMap.Geocoder({
+          //     radius: 1000,
+          //     extensions: 'all'
+          //   });
+
+          let geocoder
+          AMap.plugin('AMap.Geocoder', function () {
+            geocoder = new AMap.Geocoder({
+              radius: 1000,
+              extensions: 'all'
+            })
           })
+
           geocoder.getAddress([lng, lat], function (status, result) {
             if (status === 'complete' && result.info === 'OK') {
               if (result && result.regeocode) {
                 self.address = result.regeocode.formattedAddress
-                self.searchKey = result.regeocode.formattedAddress
-                self.$emit('updateLocation', lng, lat, self.searchKey)
+                self.name = result.regeocode.addressComponent.city
+
                 self.$nextTick()
               }
             }
           })
         }
       },
-      // 一些工具插件
-      plugin: [
-        {
-          // 定位
-          pName: 'Geolocation',
-          events: {
-            init (o) {
-              // o是高德地图定位插件实例
-              o.getCurrentPosition((status, result) => {
-                if (result && result.position) {
-                  if (self.isEdit) {
-                    // 设置经度
-                    self.lng = self.longitude
-                    // 设置维度
-                    self.lat = self.latitude
-                    // 设置坐标
-                    self.center = [self.longitude, self.latitude]
-                    self.markers.push([self.longitude, self.latitude])
-                  } else {
-                    // 设置经度
-                    self.lng = result.position.lng
-                    // 设置维度
-                    self.lat = result.position.lat
-                    // 设置坐标
-                    self.center = [self.lng, self.lat]
-                    self.markers.push([self.lng, self.lat])
-                  }
-                  // load
-                  self.loaded = true
-                  // 页面渲染好后
-                  self.$nextTick()
-                }
-              })
-            }
-          }
-        }
-      ]
-    }
-  },
-  created () {
-    if (this.value) {
-      this.searchKey = this.value
-      this.address = this.value
-    }
-    if (this.longitude && this.latitude) {
-      this.lng = this.longitude
-      this.lat = this.latitude
-      this.center = [this.longitude, this.latitude]
-      this.markers.push([this.longitude, this.latitude])
+      lng: 0,
+      lat: 0,
+      addressList: [],
+      selectedAddress: {}
     }
   },
   methods: {
-    // 选择地址后自动定位到当前地址附近
-    updateAddress (value, longitude, latitude) {
-      this.searchKey = value
-      this.address = value
-      this.lng = longitude
-      this.lat = latitude
-      this.center = [longitude, latitude]
-      this.markers.push([longitude, latitude])
+    sendMapMsg (e) {
+      this.$emit('func', e)
     },
-    initSearch () {
-      const vm = this
-      const map = this.amapManager.getMap()
-      AMapUI.loadUI(['misc/PoiPicker'], function (PoiPicker) {
-        const poiPicker = new PoiPicker({
-          input: 'search',
-          placeSearchOptions: {
-            map: map,
-            pageSize: 10
-          },
-          suggestContainer: 'searchTip',
-          searchResultsContainer: 'searchTip'
-        })
-        vm.poiPicker = poiPicker
-        // 监听poi选中信息
-        poiPicker.on('poiPicked', function (poiResult) {
-          const source = poiResult.source
-          const poi = poiResult.item
-          if (source !== 'search') {
-            poiPicker.searchByKeyword(poi.name)
-          } else {
-            poiPicker.clearSearchResults()
-            vm.markers = []
-            const lng = poi.location.lng
-            const lat = poi.location.lat
-            const address = poi.name // poi.cityname + poi.adname + poi.name
-            vm.center = [lng, lat]
-            vm.markers.push([lng, lat])
-            vm.lng = lng
-            vm.lat = lat
-            vm.address = address
-            vm.searchKey = address
-            vm.$emit('updateLocation', lng, lat, vm.searchKey)
-          }
-        })
-      })
-    },
-    searchByHand () {
-      if (this.searchKey !== '' && this.poiPicker) {
-        this.poiPicker.searchByKeyword(this.searchKey)
+    handleSelectedAddress (e) {
+      this.selectedAddress = e
+      console.log(this.selectedAddress)
+      const addressInfo = {
+        ...e,
+        lng: e.location.lng,
+        lat: e.location.lat
       }
+      sessionStorage.setItem('addressInfo', JSON.stringify(addressInfo))
+      // this.$router.go(-1);
+    },
+    addMarker: function () {
+      const lng = 121.5 + Math.round(Math.random() * 1000) / 10000
+      const lat = 31.197646 + Math.round(Math.random() * 500) / 10000
+      this.markers.push([lng, lat])
+    },
+    onSearchResult (pois) {
+      console.log('搜索结果', pois)
+      this.addressList = pois
+      this.address = this.addressList.address
+      let latSum = 0
+      let lngSum = 0
+      if (pois.length > 0) {
+        pois.forEach(poi => {
+          const { lng, lat } = poi
+          lngSum += lng
+          latSum += lat
+          this.markers.push([poi.lng, poi.lat])
+        })
+        const mapcenter = {
+          lng: lngSum / pois.length,
+          lat: latSum / pois.length
+        }
+        this.center = [mapcenter.lng, mapcenter.lat]
+      }
+    }
+  },
+  watch: {
+    address: {
+      handler: function (val, oldVal) {
+        this.address = val
+        this.$emit('sendAddress', this.address)
+      },
+      // 深度观察监听
+      deep: true
     }
   }
 }
 </script>
-<style lang="css">
-.search-box {
-  margin-top: 6px;
-  width: 100%;
-}
-.search-box input {
-  padding: 0 15px;
-  width: 100%;
-  height: 32px;
-  line-height: 32px;
-  color: #606266;
-  border: 1px solid #dcdfe6;
-  border-radius: 4px;
-}
-.search-box input:focus {
-  border-color: #409eff;
-  outline: 0;
-}
-.search-box input::-webkit-input-placeholder {
-  color: #c0c4cc;
-}
-.tip-box {
-  width: 100%;
-  max-height:280px;
-  position: absolute;
-  top: 72px;
-  z-index: 10000;
-  overflow-y: auto;
-  background-color: #fff;
-}
-</style>
-<style>
-.amap-ui-poi-picker-sugg,
-.amap_lib_placeSearch {
-  border: 1px solid #eee;
-  border-radius: 4px;
-}
-.amap-box {
-  height: 200px;
-}
-</style>
