@@ -19,11 +19,6 @@ import router from './router'
 import { menuHeader, menuAside } from '@/menu'
 import { frameInRoutes } from '@/router/routes'
 
-// 地图引入
-import Avue from '@smallwei/avue'
-import '@smallwei/avue/lib/index.css'
-Vue.use(Avue)
-
 import $api from '@/apis/index'
 import dayjs from 'dayjs'
 Vue.prototype.api = $api
