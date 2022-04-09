@@ -44,12 +44,19 @@
         <el-radio-button label="mini">mini</el-radio-button>
       </el-radio-group>
     </el-row>
-    <avue-crud
-      :data="data.data"
-      :option="option"
-      :table-loading="showLoading"
-      :page.sync="page"
-    >
+    <avue-crud ref="crud"
+               :data="data.data"
+               :option="option"
+               :table-loading="showLoading"
+               :page.sync="page"
+               @size-change="sizeChange"
+               @current-change="currentChange"
+               @refresh-change="refreshChange"
+               @row-save="rowSave"
+               @row-update="rowUpdate"
+               @row-del="rowDel"
+               @search-change="searchChange"
+               @search-reset="resetChange">
       <!-- <template slot-scope="scope"
                 slot="menuBtn">
         <el-dropdown-item divided>自定义按钮</el-dropdown-item>
@@ -62,19 +69,17 @@
 </template>
 
 <script>
-import { getAllOrder } from '@/apis/order'
+import { getAllOrder, updataOrder, deletOrder, findOrderByState, findOrderOne, findUserID, findDriverID } from '@/apis/order'
 export default {
   name: 'page1',
   data () {
-    this.created()
     return {
       page: {
-        total: 100,
-        currentPage: 1,
-        pageSize: 10, // currentPage当前页码，total总条数，pageSize每页多少条数据
+        total: 100, // total总条数，
+        currentPage: 1, // currentPage当前页码，
+        pageSize: 10, // pageSize每页多少条数据
         pagerCount: 11 // 设置最大页码按钮数
       },
-      limit: 10,
       data: [],
       menuType: 'text',
       showLoading: false,
@@ -88,7 +93,22 @@ export default {
       sizeValue: 'small'
     }
   },
-
+  // mounted () {
+  //   setTimeout(() => {
+  //     this.$nextTick(() => {
+  //       this.showLoading = true
+  //       // 这里是重点～～～
+  //       this.$refs.crud.init()
+  //     })
+  //   }, 200)
+  //   setTimeout(() => {
+  //     this.$nextTick(() => {
+  //       this.showLoading = false
+  //       // 这里是重点～～～
+  //       this.$refs.crud.init()
+  //     })
+  //   }, 200)
+  // },
   computed: {
     option () {
       return {
@@ -97,14 +117,15 @@ export default {
         titleStyle: {
           color: 'red'
         },
-        card: this.showCard,
+        card: this.showCard, // 显示卡片模式
         border: this.showBorder,
         stripe: this.showStripe,
         showHeader: this.showHeader,
-        index: this.showIndex,
+        index: this.showIndex, // 显示索引
         size: this.sizeValue,
-        selection: this.showCheckbox,
+        selection: this.showCheckbox, // 显示多选框
         page: this.showPage,
+        loading: this.showLoading, // 等待加载
         align: 'center',
         menuAlign: 'center',
         menuType: this.menuType,
@@ -149,18 +170,131 @@ export default {
       }
     }
   },
-  watch: {
-    page () {
-      this.created()
-    }
+  created () {
+    this.getList(this.page.currentPage, this.page.pageSize)
   },
+
   methods: {
-    async created () {
-      const { page, limit } = this
+    // 查询所有数据
+    async getList (page, limit) {
       const res = await getAllOrder({ page, limit })
-      this.data.data = res.data
-      this.page.total = Math.ceil(res.data.length / 10)
-      console.log(this.data.data, this.page.total)
+      console.log(res.data)
+      this.data.data = res.data.one
+      this.page.total = res.data.total
+      this.loaDing()
+    },
+    // 修改行数
+    sizeChange (val) {
+      this.page.currentPage = 1
+      this.page.pageSize = val
+      this.getList(this.page.currentPage, this.page.pageSize)
+      this.$message.success('行数' + val)
+    },
+    // 切换页码
+    currentChange  (val) {
+      this.page.currentPage = val
+      this.getList(this.page.currentPage, this.page.pageSize)
+      this.$message.success('页码' + val)
+    },
+    // 刷新表单
+    refreshChange () {
+      this.$message.success('刷新回调')
+      this.getList(this.page.currentPage, this.page.pageSize)
+    },
+    // 新增数据
+    rowSave (form, done, loading) {
+      form.id = new Date().getTime()
+      this.$message.success('模拟网络请求')
+      setTimeout(() => {
+        this.$message.success('关闭按钮等待')
+        loading()
+      }, 1000)
+      setTimeout(() => {
+        this.$message.success('新增数据' + JSON.stringify(form))
+        done(form)
+      }, 2000)
+    },
+    // 删除数据
+    rowDel (form, index, done) {
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        done(form)
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        })
+        deletOrder({ orderID: form.orderID, userID: form.userID }) // 删除数据请求
+      }).catch(() => { })
+    },
+    // 编辑数据
+    rowUpdate (form, index, done, loading) {
+      this.$message.success('模拟网络请求')
+      setTimeout(() => {
+        this.$message.success('关闭按钮等待')
+        loading()
+      }, 1000)
+      setTimeout(() => {
+        this.$message.success('编辑数据' + JSON.stringify(form) + '数据序号' + index)
+        updataOrder({ orderID: form.orderID, userID: form.userID, orderDate: form.orderDate, driverID: form.driverID, orderState: +form.orderState, carName: form.carName }) // 编辑数据请求
+        done(form)
+      }, 2000)
+    },
+    resetChange (item) {
+      this.$message.success('清空回调')
+    },
+    searchChange (params, done) {
+      this.$message.success('1s后关闭锁定')
+      setTimeout(() => {
+        done()
+        this.$message.success(JSON.stringify(params))
+        if (params.orderID) { // 通过订单号查询
+          findOrderOne({ orderID: params.orderID }).then(res => {
+            this.data.data = res.data
+            console.log(this.data.data)
+            this.loaDing()
+          })
+        }
+        if (params.orderState) { // 通过订单状态查询
+          findOrderByState({ orderState: params.orderState }).then(res => {
+            console.log(res.data)
+            this.data.data = res.data
+            this.loaDing()
+          })
+        }
+        if (params.userID) { // 根据客户ID查询
+          findUserID({ userID: params.userID }).then(res => {
+            console.log(res.data)
+            this.data.data = res.data
+            this.loaDing()
+          })
+        }
+        if (params.driverID) { // 根据司机ID查询
+          findDriverID({ driverID: params.driverID }).then(res => {
+            console.log(res.data)
+            this.data.data = res.data
+            this.loaDing()
+          })
+        }
+      }, 1000)
+    },
+    loaDing () {
+      setTimeout(() => {
+        this.$nextTick(() => {
+          this.showLoading = true
+          // 这里是重点～～～
+          // this.$refs.crud.init()
+        })
+      }, 200)
+      setTimeout(() => {
+        this.$nextTick(() => {
+          this.showLoading = false
+          // 这里是重点～～～
+          this.$refs.crud.init()
+        })
+      }, 200)
     }
   }
 }
