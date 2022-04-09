@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
 
+import VueRouter from 'vue-router'
 // 进度条
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'

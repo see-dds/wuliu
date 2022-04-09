@@ -1,9 +1,6 @@
 <template>
   <d2-container>
-    <el-form ref='form'
-    :model="form"
-    label-position="left"
-    label-width="100px">
+    <el-form ref="form" :model="form" label-position="left" label-width="100px">
       <el-form-item label="公告主题">
         <el-input v-model="form.title" placeholder="请输入内容"></el-input>
       </el-form-item>
