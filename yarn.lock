@@ -1049,6 +1049,18 @@
   "resolved" "https://registry.npmjs.org/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz"
   "version" "1.1.3"
 
+"@smallwei/avue@^2.9.4":
+  "integrity" "sha512-rpCienbv44dchHSY6Gb5eN6WzeCXA0blTt9JLCLOQ+0+Ry3QW9RKe6FyF1cTRfv9PJL8AXS2PhhtV5AmKrJRAQ=="
+  "resolved" "https://registry.npmmirror.com/@smallwei/avue/-/avue-2.9.4.tgz"
+  "version" "2.9.4"
+  dependencies:
+    "axios" "^0.21.1"
+    "countup.js" "^1.9.3"
+    "dayjs" "^1.10.4"
+    "element-ui" "^2.15.6"
+    "nprogress" "^0.2.0"
+    "vue" "^2.5.17"
+
 "@soda/friendly-errors-webpack-plugin@^1.7.1":
   "integrity" "sha512-cWKrGaFX+rfbMrAxVv56DzhPNqOJPZuNIS2HGMELtgGzb+vsMzyig9mml5gZ/hr2BGtSLV+dP2LUEuAL8aG2mQ=="
   "resolved" "https://registry.npmjs.org/@soda/friendly-errors-webpack-plugin/-/friendly-errors-webpack-plugin-1.7.1.tgz"
@@ -1995,6 +2007,13 @@
   "version" "0.19.2"
   dependencies:
     "follow-redirects" "1.5.10"
+
+"axios@^0.21.1":
+  "integrity" "sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg=="
+  "resolved" "https://registry.npmmirror.com/axios/-/axios-0.21.4.tgz"
+  "version" "0.21.4"
+  dependencies:
+    "follow-redirects" "^1.14.0"
 
 "babel-code-frame@^6.26.0":
   "integrity" "sha1-Y/1D99weO7fONZR9uP42mj9Yx0s="
@@ -3144,6 +3163,11 @@
     "js-yaml" "^3.13.1"
     "parse-json" "^4.0.0"
 
+"countup.js@^1.9.3":
+  "integrity" "sha512-UHf2P/mFKaESqdPq+UdBJm/1y8lYdlcDd0nTZHNC8cxWoJwZr1Eldm1PpWui446vDl5Pd8PtRYkr3q6K4+Qa5A=="
+  "resolved" "https://registry.npmmirror.com/countup.js/-/countup.js-1.9.3.tgz"
+  "version" "1.9.3"
+
 "create-ecdh@^4.0.0":
   "integrity" "sha512-GbEHQPMOswGpKXM9kCWVrremUcBmjteUaQ01T9rkKCPDXfUHX0IoP9LpHYo2NPFampa4e+/pFDc3jQdxrxQLaw=="
   "resolved" "https://registry.npmjs.org/create-ecdh/-/create-ecdh-4.0.3.tgz"
@@ -3458,10 +3482,10 @@
     "whatwg-mimetype" "^2.2.0"
     "whatwg-url" "^7.0.0"
 
-"dayjs@^1.8.17":
-  "integrity" "sha512-KqtAuIfdNfZR5sJY1Dixr2Is4ZvcCqhb0dZpCOt5dGEFiMzoIbjkTSzUb4QKTCsP+WNpGwUjAFIZrnZvUxxkhw=="
-  "resolved" "https://registry.npmjs.org/dayjs/-/dayjs-1.8.26.tgz"
-  "version" "1.8.26"
+"dayjs@^1.10.4", "dayjs@^1.8.17":
+  "integrity" "sha512-JLC809s6Y948/FuCZPm5IX8rRhQwOiyMb2TfVVQEixG7P8Lm/gt5S7yoQZmC8x1UehI9Pb7sksEt4xx14m+7Ug=="
+  "resolved" "https://registry.npmmirror.com/dayjs/-/dayjs-1.11.0.tgz"
+  "version" "1.11.0"
 
 "de-indent@^1.0.2":
   "integrity" "sha1-sgOOhG3DO6pXlhKNCAS0VbjB4h0="
@@ -4763,6 +4787,11 @@
   "version" "1.5.10"
   dependencies:
     "debug" "=3.1.0"
+
+"follow-redirects@^1.14.0":
+  "integrity" "sha512-MQDfihBQYMcyy5dhRDJUHcw7lb2Pv/TuE6xP1vyraLukNDHKbDxDNaOE3NbCAdKQApno+GPRyo1YAp89yCjK4w=="
+  "resolved" "https://registry.npmmirror.com/follow-redirects/-/follow-redirects-1.14.9.tgz"
+  "version" "1.14.9"
 
 "for-in@^1.0.2":
   "integrity" "sha1-gQaNKVqBQuwKxybG4iAMMPttXoA="

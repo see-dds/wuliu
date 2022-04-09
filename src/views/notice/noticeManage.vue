@@ -1,12 +1,12 @@
 <template>
   <d2-container>
-    <el-table :data="tableData">
+    <el-table border :data="tableData">
       <el-table-column prop="title" label="标题" width="160"> </el-table-column>
       <el-table-column prop="cate" label="分类" width="250"> </el-table-column>
       <el-table-column prop="content" label="内容" width="520">
       </el-table-column>
       <el-table-column prop="cover" label="封面" width="320"> </el-table-column>
-      <el-table-column>
+      <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button size="mini" @click="showEditBox = true">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDel(scope.row)">删除</el-button>
@@ -50,20 +50,20 @@
               <el-input v-model="noticleInfo.content"></el-input>
             </el-form-item>
             <el-from-item>
-              <el-upload
+              <el-input v-model="noticleInfo.cover"></el-input>
+              <!-- <el-upload
                 :limit="1"
                 class="upload-demo"
                 :action="uploadUrl"
                 :on-remove="handleRemove"
                 :file-list="fileList"
                 :on-success="uploadOk"
-                list-type="picture"
-              >
+                list-type="picture">
                 <el-button size="small" type="primary">点击上传</el-button>
                 <div slot="tip" class="el-upload__tip">
                   只能上传jpg/png文件，且不超过500kb
                 </div>
-              </el-upload>
+              </el-upload> -->
             </el-from-item>
           </el-col>
         </el-row>
@@ -102,7 +102,7 @@ export default {
     async getList () {
       const { page, limit } = this
       const res = await getAllNoticle({ page, limit })
-      this.tableData = res.data.rows
+      this.tableData = res.info.data.rows
       this.total = res.data.count
       console.log(this.tableData)
     },

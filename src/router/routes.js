@@ -21,16 +21,6 @@ const frameIn = [
         },
         component: _import('system/index')
       },
-      // 公告
-      {
-        path: 'notice',
-        name: 'notice',
-        meta: {
-          title: '公告',
-          auth: true
-        },
-        component: _import('notice/notice')
-      },
       // 发送公告
       {
         path: 'sendNotice',
@@ -51,6 +41,37 @@ const frameIn = [
         },
         component: _import('notice/noticeManage.vue')
       },
+      // 快件查询
+      {
+        path: 'query',
+        name: 'query',
+        meta: {
+          title: '快件查询',
+          auth: true
+        },
+        component: _import('customService/query.vue')
+      },
+      // 服务范围
+      {
+        path: 'serviceCover',
+        name: 'serviceCover',
+        meta: {
+          title: '服务范围',
+          auth: true
+        },
+        component: _import('customService/serviceCover.vue')
+      },
+      // 问题处理
+      {
+        path: 'problemSolve',
+        name: 'problemSolve',
+        meta: {
+          title: '问题处理',
+          auth: true
+        },
+        component: _import('customService/problemSolve.vue')
+      },
+
       // 演示页面
       {
         path: 'page1',

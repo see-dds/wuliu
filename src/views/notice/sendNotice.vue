@@ -8,7 +8,7 @@
         <el-input v-model="form.title" placeholder="请输入内容"></el-input>
       </el-form-item>
       <el-form-item label="分类">
-        <el-radio-group size="small">
+        <el-radio-group v-model="form.cate" size="small">
           <el-radio-button :label="1">寄件</el-radio-button>
           <el-radio-button :label="2">收件</el-radio-button>
           <el-radio-button :label="3">费用</el-radio-button>
@@ -22,37 +22,36 @@
       </el-form-item>
       <el-form-item label="封面：">
         <el-upload
-        >
+          class="upload-demo"
+          action="uploadUrl"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :before-remove="beforeRemove"
+          multiple
+          :limit="3"
+          :on-exceed="handleExceed"
+          :file-list="fileList">
           <el-button size="small" type="primary">选取封面</el-button>
         </el-upload>
       </el-form-item>
       <el-button type="primary" @click="sendClick">发送</el-button>
     </el-form>
-    <!-- 接受分类弹窗 -->
-    <el-dialog
-        title="分类内容"
-        :visible.sync="site"
-        width="950px">
-        <span slot="footer" class="dialog-footer">
-            <el-button @click="site= false">取 消</el-button>
-            <el-button type="primary" @click="rejectSite = false">确 定</el-button>
-        </span>
-    </el-dialog>
   </d2-container>
 </template>
 <script>
-import { getAllNoticle, getTitle } from '@/apis/article'
+import { getAllNoticle, addNoticle } from '@/apis/article'
 export default {
   name: 'sendNotice',
   data () {
     return {
+      fileList: [],
       page: 1,
       limit: 20,
       tableDate: [],
       total: 0,
       form: {
         title: '',
-        cate: '',
+        cate: '', // 1寄件 2.收件 3.费用 4.招聘
         content: '',
         cover: ''
       },
@@ -78,16 +77,16 @@ export default {
     },
     async sendClick () {
       console.log(this.form)
-      const res = await getTitle(this.form)
+      const res = await addNoticle(this.form)
       const { success } = res
-      if (!success) return this.$notify.warning('添加失败')
-      this.$notify.success('添加成功')
+      if (!success) return this.$notify.warning('发送失败')
+      this.$notify.success('发送成功')
       this.getList()
-      this.$message({
-        showClose: true,
-        message: '请输入公告内容',
-        type: 'warning'
-      })
+      // this.$message({
+      //   showClose: true,
+      //   message: '请输入公告内容',
+      //   type: 'warning'
+      // })
     },
     rejectSite () {
 
@@ -102,6 +101,14 @@ export default {
           })
         }
       })
+    }
+  },
+  filters: {
+    typeTxt (val) {
+      if (val === 1) return '寄件'
+      if (val === 2) return '收件'
+      if (val === 3) return '费用'
+      if (val === 4) return '招聘'
     }
   }
 }

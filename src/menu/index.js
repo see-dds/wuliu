@@ -40,23 +40,20 @@ export const menuAside = supplementPath([
     ]
   },
   {
-    path: '/song',
     title: '公告',
     icon: 'bell',
     children: [
       { path: '/sendNotice', title: '发送公告', icon: 'circle' },
       { path: '/noticeManage', title: '公告管理', icon: 'circle' }
     ]
+  },
+  {
+    title: '客服',
+    icon: 'user',
+    children: [
+      { path: '/query', title: '快件查询', icon: 'telegram' },
+      { path: '/serviceCover', title: '服务范围', icon: 'industry' },
+      { path: '/problemSolve', title: '问题处理', icon: 'question' }
+    ]
   }
-  // export const menuHeader = supplementPath([
-  //   { path: '/index', title: '首页', icon: 'home' },
-  //   {
-  //     title: '页面',
-  //     icon: 'folder-o',
-  //     children: [
-  //       { path: '/page1', title: '页面 1' },
-  //       { path: '/page2', title: '页面 2' },
-  //       { path: '/page3', title: '页面 3' }
-  //     ]
-  //   }
 ])
