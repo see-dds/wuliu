@@ -21,6 +21,7 @@ const frameIn = [
         },
         component: _import('system/index')
       },
+      // 发送公告
       // 演示页面
       {
         path: 'user',
@@ -41,6 +42,48 @@ const frameIn = [
         },
         component: _import('user/role')
       },
+      // 公告管理
+      //   {
+      //     path: 'noticeManage',
+      //     name: 'noticeManage',
+      //     meta: {
+      //       title: '公告管理',
+      //       auth: true
+      //     },
+      //     component: _import('notice/noticeManage.vue')
+      //   },
+      // 快件查询
+      {
+        path: 'query',
+        name: 'query',
+        meta: {
+          title: '快件查询',
+          auth: true
+        },
+        component: _import('customService/query.vue')
+      },
+      // 服务范围
+      {
+        path: 'serviceCover',
+        name: 'serviceCover',
+        meta: {
+          title: '服务范围',
+          auth: true
+        },
+        component: _import('customService/serviceCover.vue')
+      },
+      // 问题处理
+      {
+        path: 'problemSolve',
+        name: 'problemSolve',
+        meta: {
+          title: '问题处理',
+          auth: true
+        },
+        component: _import('customService/problemSolve.vue')
+      },
+
+      // 演示页面
       // 订单页面
       {
         path: 'page1',
@@ -78,15 +121,15 @@ const frameIn = [
         },
         component: _import('order/page4')
       },
-      {
-        path: 'notice',
-        name: 'notice',
-        meta: {
-          title: '公告',
-          auth: true
-        },
-        component: _import('notice/notice')
-      },
+      //   {
+      //     path: 'notice',
+      //     name: 'notice',
+      //     meta: {
+      //       title: '公告',
+      //       auth: true
+      //     },
+      //     component: _import('notice/notice.vue')
+      //   },
       // 发送公告
       {
         path: 'sendNotice',
@@ -95,7 +138,7 @@ const frameIn = [
           title: '发送公告',
           auth: true
         },
-        component: _import('notice/sendNotice')
+        component: _import('notice/sendNotice.vue')
       },
       // 公告管理
       {
@@ -136,6 +179,26 @@ const frameIn = [
           auth: true
         },
         component: _import('driver/mapMarker.vue')
+      },
+      {
+        // 财务报表明细
+        path: 'detailed',
+        name: 'detailed',
+        meta: {
+          title: '财务报表明细',
+          auth: true
+        },
+        component: _import('finance/detailed.vue')
+      },
+      {
+        // 客户管理
+        path: 'maintain',
+        name: 'maintain',
+        meta: {
+          title: '客户管理',
+          auth: true
+        },
+        component: _import('client/maintain.vue')
       },
       // 系统 前端日志
       {

@@ -23,13 +23,12 @@ export const menuAside = supplementPath([
   { path: '/index', title: '首页', icon: 'home' },
   {
     title: '订单',
-    icon: 'folder-o',
+    icon: 'database',
     children: [
-      { path: '/page1', title: '订单列表' },
-      { path: '/page2', title: '新增订单' },
-      { path: '/page3', title: '订单调度' },
-      { path: '/page4', title: '单量管理' }
-
+      { path: '/page1', title: '订单列表', icon: 'list' },
+      { path: '/page2', title: '新增订单', icon: 'plus' },
+      { path: '/page3', title: '订单调度', icon: 'hand-lizard-o' },
+      { path: '/page4', title: '单量管理', icon: 'arrows-h' }
     ]
   },
   {
@@ -42,7 +41,6 @@ export const menuAside = supplementPath([
     ]
   },
   {
-    path: '/song',
     title: '公告',
     icon: 'bell',
     children: [
@@ -51,30 +49,30 @@ export const menuAside = supplementPath([
     ]
   },
   {
+    title: '客服',
+    icon: 'user',
+    children: [
+      { path: '/query', title: '快件查询', icon: 'telegram' },
+      { path: '/serviceCover', title: '服务范围', icon: 'industry' },
+      { path: '/problemSolve', title: '问题处理', icon: 'question' }],
     title: '用户管理',
     icon: 'users',
     children: [
-      {
-        path: '/user',
-        icon: 'user',
-        title: '用户管理'
-      },
-      {
-        path: '/role',
-        icon: 'user-secret',
-        title: '角色管理'
-      }
+      { path: '/user', icon: 'user', title: '用户管理' },
+      { path: '/role', icon: 'user-secret', title: '角色管理' }
+    ]
+  }, {
+    title: '财务管理',
+    icon: 'credit-card-alt ',
+    children: [
+      { path: '/detailed', title: '财务报表汇总', icon: 'list-alt' }
+    ]
+  },
+  {
+    title: '客户管理',
+    icon: 'user-circle-o',
+    children: [
+      { path: '/maintain', title: '客户维护', icon: 'hotel' }
     ]
   }
-  // export const menuHeader = supplementPath([
-  //   { path: '/index', title: '首页', icon: 'home' },
-  //   {
-  //     title: '页面',
-  //     icon: 'folder-o',
-  //     children: [
-  //       { path: '/page1', title: '页面 1' },
-  //       { path: '/page2', title: '页面 2' },
-  //       { path: '/page3', title: '页面 3' }
-  //     ]
-  //   }
 ])
