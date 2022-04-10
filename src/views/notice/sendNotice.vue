@@ -88,6 +88,7 @@ export default {
     rejectSite () {
 
     },
+    // eslint-disable-next-line vue/no-dupe-keys
     staff () {
       this.$alert('这是一段内容', '标题名称', {
         confirmButtonText: '确定',

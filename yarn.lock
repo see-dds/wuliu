@@ -1759,7 +1759,7 @@
 
 "amap-js@^2.4.0":
   "integrity" "sha512-SCsge/o/hnOJaxTBM55DcNJEUOlQBN5A+I7YjWNqVYcdNkL7JTKzYUStPqQtUTLF/PLEkWT3Oe4opWSAAcBDZQ=="
-  "resolved" "https://registry.npmmirror.com/amap-js/-/amap-js-2.4.0.tgz"
+  "resolved" "https://repo.huaweicloud.com/repository/npm/amap-js/-/amap-js-2.4.0.tgz"
   "version" "2.4.0"
   dependencies:
     "@babel/runtime-corejs2" "^7.9.2"
@@ -10788,7 +10788,7 @@
 
 "vue-amap@^0.5.10":
   "integrity" "sha512-9ViNCev1vx32+zZ5RvF/TmUZNbwL9QrdA2/OnD2GlXMfQBkJy7D08Vb7379t6guqnopDPtWJ8K6gg72h9+4GUg=="
-  "resolved" "https://registry.npmmirror.com/vue-amap/-/vue-amap-0.5.10.tgz"
+  "resolved" "https://repo.huaweicloud.com/repository/npm/vue-amap/-/vue-amap-0.5.10.tgz"
   "version" "0.5.10"
   dependencies:
     "uppercamelcase" "^1.1.0"

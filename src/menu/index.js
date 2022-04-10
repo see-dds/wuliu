@@ -54,7 +54,10 @@ export const menuAside = supplementPath([
     children: [
       { path: '/query', title: '快件查询', icon: 'telegram' },
       { path: '/serviceCover', title: '服务范围', icon: 'industry' },
-      { path: '/problemSolve', title: '问题处理', icon: 'question' }],
+      { path: '/problemSolve', title: '问题处理', icon: 'question' }
+    ]
+  },
+  {
     title: '用户管理',
     icon: 'users',
     children: [
