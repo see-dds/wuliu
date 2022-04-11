@@ -261,3 +261,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.search-box{
+width: 300px;
+}
+</style>

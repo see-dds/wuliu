@@ -168,8 +168,8 @@ export default {
     async getSearch () {
       const res = await searchCar({ carType: this.input })
       console.log(res)
-    //   this.tableData = res.data
-      //   console.log(this.tableData)
+      this.tableData = res.data
+    //   console.log(this.tableData)
     //   this.tableData.map(item => {
     //     // console.log(item.driverInfo)
     //     item.driverInfo.map(imte => {
